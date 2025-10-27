@@ -1,0 +1,131 @@
+[1/82] Linking C static library esp-idf\json\libjson.a
+[2/82] Building C object esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/diskio/diskio_sdmmc.c.obj
+[3/82] Building C object esp-idf/nvs_sec_provider/CMakeFiles/__idf_nvs_sec_provider.dir/nvs_sec_provider.c.obj
+[4/82] Building C object esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/port/freertos/ffsystem.c.obj
+[5/82] Building C object esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/src/ffunicode.c.obj
+[6/82] Building C object esp-idf/mqtt/CMakeFiles/__idf_mqtt.dir/esp-mqtt/lib/platform_esp32_idf.c.obj
+[7/82] Building C object esp-idf/mqtt/CMakeFiles/__idf_mqtt.dir/esp-mqtt/lib/mqtt_outbox.c.obj
+[8/82] Building C object esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/vfs/vfs_fat_spiflash.c.obj
+[9/82] Building C object esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/vfs/vfs_fat_sdmmc.c.obj
+[10/82] Building C object esp-idf/mqtt/CMakeFiles/__idf_mqtt.dir/esp-mqtt/lib/mqtt_msg.c.obj
+[11/82] Building C object esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/vfs/vfs_fat.c.obj
+[12/82] Building C object esp-idf/perfmon/CMakeFiles/__idf_perfmon.dir/xtensa_perfmon_access.c.obj
+[13/82] Building C object esp-idf/fatfs/CMakeFiles/__idf_fatfs.dir/src/ff.c.obj
+[14/82] Building C object esp-idf/perfmon/CMakeFiles/__idf_perfmon.dir/xtensa_perfmon_masks.c.obj
+[15/82] Building C object esp-idf/esp_lcd/CMakeFiles/__idf_esp_lcd.dir/rgb/esp_lcd_panel_rgb.c.obj
+[16/82] Building C object esp-idf/perfmon/CMakeFiles/__idf_perfmon.dir/xtensa_perfmon_apis.c.obj
+[17/82] Building C object esp-idf/rt/CMakeFiles/__idf_rt.dir/FreeRTOS_POSIX_mqueue.c.obj
+[18/82] Building C object esp-idf/spiffs/CMakeFiles/__idf_spiffs.dir/spiffs_api.c.obj
+[19/82] Building C object esp-idf/spiffs/CMakeFiles/__idf_spiffs.dir/spiffs/src/spiffs_cache.c.obj
+[20/82] Building C object esp-idf/mqtt/CMakeFiles/__idf_mqtt.dir/esp-mqtt/mqtt_client.c.obj
+[21/82] Building C object esp-idf/spiffs/CMakeFiles/__idf_spiffs.dir/spiffs/src/spiffs_check.c.obj
+[22/82] Building C object esp-idf/rt/CMakeFiles/__idf_rt.dir/FreeRTOS_POSIX_utils.c.obj
+[23/82] Building C object esp-idf/spiffs/CMakeFiles/__idf_spiffs.dir/spiffs/src/spiffs_gc.c.obj
+[24/82] Building C object esp-idf/spiffs/CMakeFiles/__idf_spiffs.dir/spiffs/src/spiffs_hydrogen.c.obj
+[25/82] Building C object esp-idf/touch_element/CMakeFiles/__idf_touch_element.dir/touch_element.c.obj
+[26/82] Building C object esp-idf/touch_element/CMakeFiles/__idf_touch_element.dir/touch_button.c.obj
+[27/82] Building C object esp-idf/spiffs/CMakeFiles/__idf_spiffs.dir/spiffs/src/spiffs_nucleus.c.obj
+[28/82] Building C object esp-idf/spiffs/CMakeFiles/__idf_spiffs.dir/esp_spiffs.c.obj
+[29/82] Building C object esp-idf/touch_element/CMakeFiles/__idf_touch_element.dir/touch_slider.c.obj
+[30/82] Building C object esp-idf/touch_element/CMakeFiles/__idf_touch_element.dir/touch_matrix.c.obj
+[31/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/usb_private.c.obj
+[32/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/enum.c.obj
+[33/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/hub.c.obj
+[34/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/usb_helpers.c.obj
+[35/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/wifi_config.c.obj
+[36/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/wifi_ctrl.c.obj
+[37/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/usb_host.c.obj
+[38/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/usbh.c.obj
+[39/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/usb_phy.c.obj
+[40/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/wifi_scan.c.obj
+[41/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_config.pb-c.c.obj
+[42/82] Building C object esp-idf/usb/CMakeFiles/__idf_usb.dir/hcd_dwc.c.obj
+[43/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/handlers.c.obj
+[44/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_constants.pb-c.c.obj
+[45/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_scan.pb-c.c.obj
+[46/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/scheme_console.c.obj
+[47/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/proto-c/wifi_ctrl.pb-c.c.obj
+[48/82] Linking C static library esp-idf\cmock\libcmock.a
+[49/82] Linking C static library esp-idf\app_trace\libapp_trace.a
+[50/82] Linking C static library esp-idf\esp_driver_cam\libesp_driver_cam.a
+[51/82] Linking C static library esp-idf\esp_eth\libesp_eth.a
+[52/82] Linking C static library esp-idf\esp_lcd\libesp_lcd.a
+[53/82] Linking C static library esp-idf\esp_hid\libesp_hid.a
+[54/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/manager.c.obj
+[55/82] Linking C static library esp-idf\esp_local_ctrl\libesp_local_ctrl.a
+[56/82] Linking C static library esp-idf\espcoredump\libespcoredump.a
+[57/82] Building C object esp-idf/espressif__led_strip/CMakeFiles/__idf_espressif__led_strip.dir/src/led_strip_api.c.obj
+[58/82] Building C object esp-idf/espressif__led_strip/CMakeFiles/__idf_espressif__led_strip.dir/src/led_strip_rmt_encoder.c.obj
+[59/82] Linking C static library esp-idf\fatfs\libfatfs.a
+[60/82] Linking C static library esp-idf\mqtt\libmqtt.a
+[61/82] Building C object esp-idf/wifi_provisioning/CMakeFiles/__idf_wifi_provisioning.dir/src/scheme_softap.c.obj
+[62/82] Linking C static library esp-idf\rt\librt.a
+[63/82] Linking C static library esp-idf\perfmon\libperfmon.a
+[64/82] Linking C static library esp-idf\nvs_sec_provider\libnvs_sec_provider.a
+[65/82] Building C object esp-idf/espressif__led_strip/CMakeFiles/__idf_espressif__led_strip.dir/src/led_strip_rmt_dev.c.obj
+[66/82] Linking C static library esp-idf\spiffs\libspiffs.a
+[67/82] Linking C static library esp-idf\touch_element\libtouch_element.a
+[68/82] Linking C static library esp-idf\usb\libusb.a
+[69/82] Building C object esp-idf/espressif__led_strip/CMakeFiles/__idf_espressif__led_strip.dir/src/led_strip_spi_dev.c.obj
+[70/82] Linking C static library esp-idf\wifi_provisioning\libwifi_provisioning.a
+[71/82] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D D:\Private\Project\ESP32\IIC\build\bootloader\esp-idf\esptool_py && D:\Espressif\python_env\idf5.4_py3.11_env\Scripts\python.exe D:/Espressif/frameworks/esp-idf-v5.4/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 D:/Private/Project/ESP32/IIC/build/bootloader/bootloader.bin"
+Bootloader binary size 0x5210 bytes. 0x2df0 bytes (36%) free.
+[72/82] No install step for 'bootloader'
+[73/82] Linking C static library esp-idf\espressif__led_strip\libespressif__led_strip.a
+[74/82] Completed 'bootloader'
+[75/82] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/IIC.c.obj
+[76/82] Linking C static library esp-idf\main\libmain.a
+[77/82] Generating ld/sections.ld
+[78/82] Building C object CMakeFiles/IIC.elf.dir/project_elf_src_esp32s3.c.obj
+[79/82] Linking CXX executable IIC.elf
+[80/82] Generating binary image from built executable
+esptool.py v4.8.1
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+Generated D:/Private/Project/ESP32/IIC/build/IIC.bin
+[81/82] C:\Windows\system32\cmd.exe /C "cd /D D:\Private\Project\ESP32\IIC\build\esp-idf\esptool_py && D:\Espressif\python_env\idf5.4_py3.11_env\Scripts\python.exe D:/Espressif/frameworks/esp-idf-v5.4/components/partition_table/check_sizes.py --offset 0x8000 partition --type app D:/Private/Project/ESP32/IIC/build/partition_table/partition-table.bin D:/Private/Project/ESP32/IIC/build/IIC.bin"
+IIC.bin binary size 0x324c0 bytes. Smallest app partition is 0x100000 bytes. 0xcdb40 bytes (80%) free.
+[81/82] C:\Windows\system32\cmd.exe /C "cd /D D:\Espressif\frameworks\esp-idf-v5.4\components\esptool_py && D:\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=D:/Espressif/frameworks/esp-idf-v5.4 -D SERIAL_TOOL=D:/Espressif/python_env/idf5.4_py3.11_env/Scripts/python.exe;;D:/Espressif/frameworks/esp-idf-v5.4/components/esptool_py/esptool/esptool.py;--chip;esp32s3 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=D:/Private/Project/ESP32/IIC/build -P D:/Espressif/frameworks/esp-idf-v5.4/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32s3 -p com3 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 2MB 0x0 bootloader/bootloader.bin 0x10000 IIC.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.8.1
+Serial port com3
+Connecting...
+Failed to get PID of a device on com3, using standard reset sequence.
+.
+Chip is ESP32-S3 (QFN56) (revision v0.2)
+Features: WiFi, BLE, Embedded PSRAM 2MB (AP_3v3)
+Crystal is 40MHz
+MAC: 48:ca:43:b8:80:30
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00005fff...
+Flash will be erased from 0x00010000 to 0x00042fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 21008 bytes to 13375...
+Writing at 0x00000000... (100 %)
+Wrote 21008 bytes (13375 compressed) at 0x00000000 in 0.7 seconds (effective 230.8 kbit/s)...
+Hash of data verified.
+Compressed 206016 bytes to 109801...
+Writing at 0x00010000... (14 %)
+Writing at 0x0001ca69... (28 %)
+Writing at 0x00022b1e... (42 %)
+Writing at 0x00029227... (57 %)
+Writing at 0x0003006f... (71 %)
+Writing at 0x00037893... (85 %)
+Writing at 0x0003db54... (100 %)
+Wrote 206016 bytes (109801 compressed) at 0x00010000 in 2.7 seconds (effective 616.8 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 320.0 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

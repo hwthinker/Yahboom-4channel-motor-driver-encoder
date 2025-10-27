@@ -1,0 +1,53 @@
+[0;33m--- Warning: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM3 instead...[0m
+[0;33m--- esp-idf-monitor 1.5.0 on \\.\COM3 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e0: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:17
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e3: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:20
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e6: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:20
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e3: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:20
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e0: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:17
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e0: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:17
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e0: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:17
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0;33m--- 0x4200d972: task_wdt_timeout_handling at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:434
+0x4200dd88: task_wdt_isr at D:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/task_wdt/task_wdt.c:507
+0x403772c1: _xt_lowint1 at D:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/xtensa_vectors.S:1240
+0x4200b3e0: MotorControl_Task at D:/Private/Project/ESP32/UART/main/uart.c:17
+0x4037b42d: vPortTaskWrapper at D:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:139
+[0m
+[0m

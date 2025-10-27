@@ -1,0 +1,5 @@
+[1/8] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D D:\Private\Project\ESP32\IIC\build\bootloader\esp-idf\esptool_py && D:\Espressif\python_env\idf5.4_py3.11_env\Scripts\python.exe D:/Espressif/frameworks/esp-idf-v5.4/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 D:/Private/Project/ESP32/IIC/build/bootloader/bootloader.bin"
+Bootloader binary size 0x5210 bytes. 0x2df0 bytes (36%) free.
+[2/8] No install step for 'bootloader'
+[3/8] Completed 'bootloader'

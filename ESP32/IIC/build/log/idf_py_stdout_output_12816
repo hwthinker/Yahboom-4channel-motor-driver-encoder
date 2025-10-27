@@ -1,0 +1,353 @@
+[1/13] Performing build step for 'bootloader'
+[1/1] C:\Windows\system32\cmd.exe /C "cd /D D:\Private\Project\ESP32\IIC\build\bootloader\esp-idf\esptool_py && D:\Espressif\python_env\idf5.4_py3.11_env\Scripts\python.exe D:/Espressif/frameworks/esp-idf-v5.4/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 D:/Private/Project/ESP32/IIC/build/bootloader/bootloader.bin"
+Bootloader binary size 0x5210 bytes. 0x2df0 bytes (36%) free.
+[2/13] No install step for 'bootloader'
+[3/13] Completed 'bootloader'
+[4/13] Building C object esp-idf/i2c_module/CMakeFiles/__idf_i2c_module.dir/i2c_module.c.obj
+FAILED: esp-idf/i2c_module/CMakeFiles/__idf_i2c_module.dir/i2c_module.c.obj 
+ccache D:\Espressif\tools\xtensa-esp-elf\esp-14.2.0_20241119\xtensa-esp-elf\bin\xtensa-esp32s3-elf-gcc.exe -DESP_PLATFORM -DIDF_VER=\"v5.4-dirty\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -ID:/Private/Project/ESP32/IIC/build/config -ID:/Private/Project/ESP32/IIC/components/i2c_module -ID:/Espressif/frameworks/esp-idf-v5.4/components/newlib/platform_include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/config/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/config/include/freertos -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/config/xtensa/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/esp_additions/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/include/soc -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/include/soc/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/dma/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/ldo/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/debug_probe/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/port/esp32s3/. -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/port/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/heap/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/heap/tlsf -ID:/Espressif/frameworks/esp-idf-v5.4/components/log/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/esp32s3/register -ID:/Espressif/frameworks/esp-idf-v5.4/components/hal/platform_port/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/hal/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/hal/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/esp32s3/include/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_common/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/port/soc -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/port/include/private -ID:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/deprecated_include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/include/apps -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/include/apps/sntp -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/lwip/src/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/freertos/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/esp32xx/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/esp32xx/include/arch -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/esp32xx/include/sys -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/deprecated -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/i2c/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/touch_sensor/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/twai/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/touch_sensor/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_pm/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_ringbuf/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_gpio/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_pcnt/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_gptimer/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_spi/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_mcpwm/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_ana_cmpr/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_i2s/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdmmc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/sdmmc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdspi/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdio/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_dac/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_rmt/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_tsens/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdm/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_i2c/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_uart/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/vfs/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_ledc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_parlio/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_usb_serial_jtag/include -mlongcalls  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-error=extra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -fmacro-prefix-map=D:/Private/Project/ESP32/IIC=. -fmacro-prefix-map=D:/Espressif/frameworks/esp-idf-v5.4=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -std=gnu17 -Wno-old-style-declaration -MD -MT esp-idf/i2c_module/CMakeFiles/__idf_i2c_module.dir/i2c_module.c.obj -MF esp-idf\i2c_module\CMakeFiles\__idf_i2c_module.dir\i2c_module.c.obj.d -o esp-idf/i2c_module/CMakeFiles/__idf_i2c_module.dir/i2c_module.c.obj -c D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c:35:11: error: conflicting types for 'i2cWrite'; have 'esp_err_t(uint8_t,  uint8_t,  uint8_t,  uint8_t *)' {aka 'int(unsigned char,  unsigned char,  unsigned char,  unsigned char *)'}
+   35 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t len, uint8_t *data) {
+      |           ^~~~~~~~
+In file included from D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c:1:
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:11: note: previous declaration of 'i2cWrite' with type 'esp_err_t(uint8_t,  uint8_t,  uint8_t *, uint8_t)' {aka 'int(unsigned char,  unsigned char,  unsigned char *, unsigned char)'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |           ^~~~~~~~
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c: In function 'i2cWrite':
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c:51:5: error: implicit declaration of function 'memcpy' [-Wimplicit-function-declaration]
+   51 |     memcpy(&buffer[1], data, len);
+      |     ^~~~~~
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c:4:1: note: 'memcpy' is defined in header '<string.h>'; this is probably fixable by adding '#include <string.h>'
+    3 | #include "driver/i2c_master.h"  // °I2C New I2C master driver
+  +++ |+#include <string.h>
+    4 | 
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c: At top level:
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c:63:11: error: conflicting types for 'i2cRead'; have 'esp_err_t(uint8_t,  uint8_t,  uint8_t,  uint8_t *)' {aka 'int(unsigned char,  unsigned char,  unsigned char,  unsigned char *)'}
+   63 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t len, uint8_t *buf) {
+      |           ^~~~~~~
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:11: note: previous declaration of 'i2cRead' with type 'esp_err_t(uint8_t,  uint8_t,  uint8_t *, uint8_t)' {aka 'int(unsigned char,  unsigned char,  unsigned char *, unsigned char)'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |           ^~~~~~~
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.c:11:32: warning: 'i2c_dev_handle' defined but not used [-Wunused-variable]
+   11 | static i2c_master_dev_handle_t i2c_dev_handle = NULL;
+      |                                ^~~~~~~~~~~~~~
+[5/13] Building C object esp-idf/motor_module/CMakeFiles/__idf_motor_module.dir/bsp_motor_iic.c.obj
+FAILED: esp-idf/motor_module/CMakeFiles/__idf_motor_module.dir/bsp_motor_iic.c.obj 
+ccache D:\Espressif\tools\xtensa-esp-elf\esp-14.2.0_20241119\xtensa-esp-elf\bin\xtensa-esp32s3-elf-gcc.exe -DESP_PLATFORM -DIDF_VER=\"v5.4-dirty\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -ID:/Private/Project/ESP32/IIC/build/config -ID:/Private/Project/ESP32/IIC/components/motor_module -ID:/Espressif/frameworks/esp-idf-v5.4/components/newlib/platform_include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/config/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/config/include/freertos -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/config/xtensa/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -ID:/Espressif/frameworks/esp-idf-v5.4/components/freertos/esp_additions/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/include/soc -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/include/soc/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/dma/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/ldo/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/debug_probe/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/port/esp32s3/. -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_hw_support/port/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/heap/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/heap/tlsf -ID:/Espressif/frameworks/esp-idf-v5.4/components/log/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/soc/esp32s3/register -ID:/Espressif/frameworks/esp-idf-v5.4/components/hal/platform_port/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/hal/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/hal/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/esp32s3/include/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_rom/esp32s3 -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_common/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/port/soc -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_system/port/include/private -ID:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/xtensa/deprecated_include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/include/apps -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/include/apps/sntp -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/lwip/src/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/freertos/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/esp32xx/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/esp32xx/include/arch -ID:/Espressif/frameworks/esp-idf-v5.4/components/lwip/port/esp32xx/include/sys -ID:/Private/Project/ESP32/IIC/components/i2c_module -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/deprecated -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/i2c/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/touch_sensor/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/twai/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/driver/touch_sensor/esp32s3/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_pm/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_ringbuf/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_gpio/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_pcnt/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_gptimer/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_spi/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_mcpwm/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_ana_cmpr/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_i2s/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdmmc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/sdmmc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdspi/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdio/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_dac/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_rmt/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_tsens/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_sdm/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_i2c/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_uart/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/vfs/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_ledc/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_parlio/include -ID:/Espressif/frameworks/esp-idf-v5.4/components/esp_driver_usb_serial_jtag/include -mlongcalls  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-error=extra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -fmacro-prefix-map=D:/Private/Project/ESP32/IIC=. -fmacro-prefix-map=D:/Espressif/frameworks/esp-idf-v5.4=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -std=gnu17 -Wno-old-style-declaration -MD -MT esp-idf/motor_module/CMakeFiles/__idf_motor_module.dir/bsp_motor_iic.c.obj -MF esp-idf\motor_module\CMakeFiles\__idf_motor_module.dir\bsp_motor_iic.c.obj.d -o esp-idf/motor_module/CMakeFiles/__idf_motor_module.dir/bsp_motor_iic.c.obj -c D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'Set_motor_type':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:27:50: error: passing argument 3 of 'i2cWrite' makes pointer from integer without a cast [-Wint-conversion]
+   27 |         i2cWrite(Motor_model_ADDR,MOTOR_TYPE_REG,2,&data);
+      |                                                  ^
+      |                                                  |
+      |                                                  int
+In file included from D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.h:5,
+                 from D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:1:
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                               ~~~~~~~~~^~~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:27:52: error: passing argument 4 of 'i2cWrite' makes integer from pointer without a cast [-Wint-conversion]
+   27 |         i2cWrite(Motor_model_ADDR,MOTOR_TYPE_REG,2,&data);
+      |                                                    ^~~~~
+      |                                                    |
+      |                                                    uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:70: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                                              ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'Set_motor_deadzone':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:38:54: error: passing argument 3 of 'i2cWrite' makes pointer from integer without a cast [-Wint-conversion]
+   38 |         i2cWrite(Motor_model_ADDR,MOTOR_DeadZONE_REG,2,buf_tempzone);
+      |                                                      ^
+      |                                                      |
+      |                                                      int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                               ~~~~~~~~~^~~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:38:56: error: passing argument 4 of 'i2cWrite' makes integer from pointer without a cast [-Wint-conversion]
+   38 |         i2cWrite(Motor_model_ADDR,MOTOR_DeadZONE_REG,2,buf_tempzone);
+      |                                                        ^~~~~~~~~~~~
+      |                                                        |
+      |                                                        uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:70: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                                              ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'Set_Pluse_line':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:49:55: error: passing argument 3 of 'i2cWrite' makes pointer from integer without a cast [-Wint-conversion]
+   49 |         i2cWrite(Motor_model_ADDR,MOTOR_PluseLine_REG,2,buf_templine);
+      |                                                       ^
+      |                                                       |
+      |                                                       int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                               ~~~~~~~~~^~~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:49:57: error: passing argument 4 of 'i2cWrite' makes integer from pointer without a cast [-Wint-conversion]
+   49 |         i2cWrite(Motor_model_ADDR,MOTOR_PluseLine_REG,2,buf_templine);
+      |                                                         ^~~~~~~~~~~~
+      |                                                         |
+      |                                                         uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:70: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                                              ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'Set_Pluse_Phase':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:60:56: error: passing argument 3 of 'i2cWrite' makes pointer from integer without a cast [-Wint-conversion]
+   60 |         i2cWrite(Motor_model_ADDR,MOTOR_PlusePhase_REG,2,buf_tempPhase);
+      |                                                        ^
+      |                                                        |
+      |                                                        int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                               ~~~~~~~~~^~~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:60:58: error: passing argument 4 of 'i2cWrite' makes integer from pointer without a cast [-Wint-conversion]
+   60 |         i2cWrite(Motor_model_ADDR,MOTOR_PlusePhase_REG,2,buf_tempPhase);
+      |                                                          ^~~~~~~~~~~~~
+      |                                                          |
+      |                                                          uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:70: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                                              ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'Set_Wheel_dis':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:71:49: error: passing argument 3 of 'i2cWrite' makes pointer from integer without a cast [-Wint-conversion]
+   71 |         i2cWrite(Motor_model_ADDR,WHEEL_DIA_REG,4,bytes);
+      |                                                 ^
+      |                                                 |
+      |                                                 int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                               ~~~~~~~~~^~~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:71:51: error: passing argument 4 of 'i2cWrite' makes integer from pointer without a cast [-Wint-conversion]
+   71 |         i2cWrite(Motor_model_ADDR,WHEEL_DIA_REG,4,bytes);
+      |                                                   ^~~~~
+      |                                                   |
+      |                                                   uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:70: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                                              ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'control_speed':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:92:53: error: passing argument 3 of 'i2cWrite' makes pointer from integer without a cast [-Wint-conversion]
+   92 |         i2cWrite(Motor_model_ADDR,SPEED_Control_REG,8,speed);
+      |                                                     ^
+      |                                                     |
+      |                                                     int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                               ~~~~~~~~~^~~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:92:55: error: passing argument 4 of 'i2cWrite' makes integer from pointer without a cast [-Wint-conversion]
+   92 |         i2cWrite(Motor_model_ADDR,SPEED_Control_REG,8,speed);
+      |                                                       ^~~~~
+      |                                                       |
+      |                                                       uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:70: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                                              ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'control_pwm':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:116:51: error: passing argument 3 of 'i2cWrite' makes pointer from integer without a cast [-Wint-conversion]
+  116 |         i2cWrite(Motor_model_ADDR,PWM_Control_REG,8,pwm);
+      |                                                   ^
+      |                                                   |
+      |                                                   int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                               ~~~~~~~~~^~~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:116:53: error: passing argument 4 of 'i2cWrite' makes integer from pointer without a cast [-Wint-conversion]
+  116 |         i2cWrite(Motor_model_ADDR,PWM_Control_REG,8,pwm);
+      |                                                     ^~~
+      |                                                     |
+      |                                                     uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:22:70: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   22 | esp_err_t i2cWrite(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t len);
+      |                                                              ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'Read_10_Enconder':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:127:59: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  127 |         i2cRead(Motor_model_ADDR, READ_TEN_M1Enconer_REG, 2, buf);
+      |                                                           ^
+      |                                                           |
+      |                                                           int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:127:62: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  127 |         i2cRead(Motor_model_ADDR, READ_TEN_M1Enconer_REG, 2, buf);
+      |                                                              ^~~
+      |                                                              |
+      |                                                              uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:131:59: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  131 |         i2cRead(Motor_model_ADDR, READ_TEN_M2Enconer_REG, 2, buf);
+      |                                                           ^
+      |                                                           |
+      |                                                           int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:131:62: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  131 |         i2cRead(Motor_model_ADDR, READ_TEN_M2Enconer_REG, 2, buf);
+      |                                                              ^~~
+      |                                                              |
+      |                                                              uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:135:59: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  135 |         i2cRead(Motor_model_ADDR, READ_TEN_M3Enconer_REG, 2, buf);
+      |                                                           ^
+      |                                                           |
+      |                                                           int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:135:62: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  135 |         i2cRead(Motor_model_ADDR, READ_TEN_M3Enconer_REG, 2, buf);
+      |                                                              ^~~
+      |                                                              |
+      |                                                              uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:139:59: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  139 |         i2cRead(Motor_model_ADDR, READ_TEN_M4Enconer_REG, 2, buf);
+      |                                                           ^
+      |                                                           |
+      |                                                           int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:139:62: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  139 |         i2cRead(Motor_model_ADDR, READ_TEN_M4Enconer_REG, 2, buf);
+      |                                                              ^~~
+      |                                                              |
+      |                                                              uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c: In function 'Read_ALL_Enconder':
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:151:56: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  151 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M1_REG, 2, buf);
+      |                                                        ^
+      |                                                        |
+      |                                                        int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:151:59: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  151 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M1_REG, 2, buf);
+      |                                                           ^~~
+      |                                                           |
+      |                                                           uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:152:55: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  152 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M1_REG, 2, buf2);
+      |                                                       ^
+      |                                                       |
+      |                                                       int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:152:58: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  152 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M1_REG, 2, buf2);
+      |                                                          ^~~~
+      |                                                          |
+      |                                                          uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:157:56: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  157 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M2_REG, 2, buf);
+      |                                                        ^
+      |                                                        |
+      |                                                        int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:157:59: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  157 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M2_REG, 2, buf);
+      |                                                           ^~~
+      |                                                           |
+      |                                                           uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:158:55: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  158 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M2_REG, 2, buf2);
+      |                                                       ^
+      |                                                       |
+      |                                                       int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:158:58: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  158 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M2_REG, 2, buf2);
+      |                                                          ^~~~
+      |                                                          |
+      |                                                          uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:162:56: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  162 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M3_REG, 2, buf);
+      |                                                        ^
+      |                                                        |
+      |                                                        int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:162:59: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  162 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M3_REG, 2, buf);
+      |                                                           ^~~
+      |                                                           |
+      |                                                           uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:163:55: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  163 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M3_REG, 2, buf2);
+      |                                                       ^
+      |                                                       |
+      |                                                       int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:163:58: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  163 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M3_REG, 2, buf2);
+      |                                                          ^~~~
+      |                                                          |
+      |                                                          uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:168:56: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  168 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M4_REG, 2, buf);
+      |                                                        ^
+      |                                                        |
+      |                                                        int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:168:59: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  168 |         i2cRead(Motor_model_ADDR, READ_ALLHigh_M4_REG, 2, buf);
+      |                                                           ^~~
+      |                                                           |
+      |                                                           uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:169:55: error: passing argument 3 of 'i2cRead' makes pointer from integer without a cast [-Wint-conversion]
+  169 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M4_REG, 2, buf2);
+      |                                                       ^
+      |                                                       |
+      |                                                       int
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:55: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                              ~~~~~~~~~^~~
+D:/Private/Project/ESP32/IIC/components/motor_module/bsp_motor_iic.c:169:58: error: passing argument 4 of 'i2cRead' makes integer from pointer without a cast [-Wint-conversion]
+  169 |         i2cRead(Motor_model_ADDR, READ_ALLLOW_M4_REG, 2, buf2);
+      |                                                          ^~~~
+      |                                                          |
+      |                                                          uint8_t * {aka unsigned char *}
+D:/Private/Project/ESP32/IIC/components/i2c_module/i2c_module.h:23:68: note: expected 'uint8_t' {aka 'unsigned char'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   23 | esp_err_t i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len);
+      |                                                            ~~~~~~~~^~~
+[6/13] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/IIC.c.obj
+ninja: build stopped: subcommand failed.
