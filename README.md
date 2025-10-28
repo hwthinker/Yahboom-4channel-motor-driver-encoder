@@ -2,7 +2,7 @@
 
 ## 1.1 Pengenalan Board Driver Motor 4-Channel
 
-![image-20251028052746916](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/image-20251028052746916.png)
+![image-20251028052746916](assets/image-20251028052746916.png)
 
 ### Pengenalan Produk:
 
