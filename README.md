@@ -1961,3 +1961,11 @@ Setelah kabel terpasang dengan benar, tulis program ke motherboard. Setelah peng
 Pada saat yang sama, Anda dapat melihat bahwa nilai motor yang dicetak terus berubah dalam asisten port serial.
 
 ![img](./assets/2-1761604788916-76.png)
+
+## Referensi:
+
+- https://www.yahboom.net/study/Quad-MD-Module
+
+- https://github.com/YahboomTechnology/4-Channel-Motor-Drive-Module
+
+  
