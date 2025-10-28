@@ -551,31 +551,27 @@ Konfigurasi port serial: **Baud rate 115200, tanpa pemeriksaan paritas, tanpa ko
 
 ## 1.2 Analisis kode
 
-```
-#define UPLOAD_DATA 3  //0:不接受数据 1:接收总的编码器数据 2:接收实时的编码器 3:接收电机当前速度 mm/s
-                       //0: Do not receive data 1: Receive total encoder data 2: Receive real-time encoder 3: Receive current motor speed mm/s
-
-
-#define MOTOR_TYPE 1   //1:520电机 2:310电机 3:测速码盘TT电机 4:TT直流减速电机 5:L型520电机
-                       //1:520 motor 2:310 motor 3:speed code disc TT motor 4:TT DC reduction motor 5:L type 520 motor
+```c++
+#define UPLOAD_DATA 3  //0: Tidak menerima data 1: Menerima data encoder total 2: Menerima encoder real-time 3: Menerima kecepatan motor saat ini mm/s
+#define MOTOR_TYPE 1   //1: motor 520 2: motor 310 3: motor TT disk kode kecepatan 4: motor reduksi DC TT 5: motor 520 tipe L
 ```
 
-- UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
-- MOTOR_TYPE: used to set the type of motor used. Just modify the corresponding numbers according to the comments according to the motor you are currently using. You don’t need to modify the rest of the code.
+- UPLOAD_DATA: digunakan untuk mengatur data enkoder motor. Atur 1 ke jumlah total pulsa enkoder dan 2 ke data pulsa waktu nyata 10 ms.
+- MOTOR_TYPE: digunakan untuk mengatur jenis motor yang digunakan. Cukup ubah angka yang sesuai dengan komentar sesuai motor yang sedang Anda gunakan. Anda tidak perlu mengubah sisa kode.
 
-If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
+Jika Anda perlu menggerakkan motor dan mengamati data, cukup ubah dua angka di awal program. Sisa kode tidak perlu diubah.
 
-```
-  #if MOTOR_TYPE == 1
-    send_motor_type(1);//配置电机类型 Configure motor type
+```c++
+#if MOTOR_TYPE == 1
+    send_motor_type(1);  // Konfigurasi tipe motor
     delay(100);
-    send_pulse_phase(30);//配置减速比 查电机手册得出    Configure the reduction ratio. Check the motor manual to find out
+    send_pulse_phase(30);  // Konfigurasi rasio reduksi. Periksa manual motor untuk mengetahuinya
     delay(100);
-    send_pulse_line(11);//配置磁环线 查电机手册得出 Configure the magnetic ring wire. Check the motor manual to get the result.
+    send_pulse_line(11);  // Konfigurasi garis cincin magnetik. Periksa manual motor untuk mendapatkan hasilnya
     delay(100);
-    send_wheel_diameter(67.00);//配置轮子直径,测量得出        Configure the wheel diameter and measure it
+    send_wheel_diameter(67.00);  // Konfigurasi diameter roda dan ukur
     delay(100);
-    send_motor_deadzone(1900);//配置电机死区,实验得出 Configure the motor dead zone, and the experiment shows
+    send_motor_deadzone(1900);  // Konfigurasi zona mati motor, dan eksperimen menunjukkan
     delay(100);
     
   #elif MOTOR_TYPE == 2
@@ -624,11 +620,9 @@ If you need to drive the motor and observe the data, just modify the two numbers
   #endif
 ```
 
-This is used to store the parameters of the Yahboom motor. By modifying the MOTOR_TYPE parameter above, one-click configuration can be achieved.
+Ini digunakan untuk menyimpan parameter motor Yahboom. Dengan memodifikasi parameter MOTOR_TYPE di atas, konfigurasi sekali klik dapat dilakukan. Biasanya, jangan mengubah kode di sini saat menggunakan motor Yahboom.
 
-In normally, do not modify the code here when using the Yahboom motor.
-
-If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
+Jika Anda menggunakan motor Anda sendiri, atau jika data tertentu perlu dimodifikasi sesuai kebutuhan Anda, Anda dapat memeriksa kursus《1.2 Perintah kontrol》 untuk memahami arti spesifik dari setiap perintah.
 
 ```
 void loop(){
@@ -640,10 +634,8 @@ void loop(){
       #if MOTOR_TYPE == 4
         Contrl_Pwm(i*2,i*2,i*2,i*2);
       #else
-        Contrl_Speed(i,i,i,i);   //值为-1000~1000 The value is -1000~1000
+        Contrl_Speed(i,i,i,i);   // Nilainya adalah -1000~1000
       #endif
-
-
         Deal_data_real();
         //delay(100);
       #if UPLOAD_DATA == 1
@@ -660,24 +652,19 @@ void loop(){
         sprintf(buffer,"M1:%s,M2:%s,M3:%s,M4:%s\r\n",string1,string2,string3,string4);
         printSerial.println(buffer);
       #endif
-
-
       i++;
       if (i == 1000) i = 0;
       
     }
-
-
 }
 ```
 
-In the loop program, the speed of the four motors will be slowly increased from 0 to 1000. If the motor type is 4, that is, the motor without encoder, the motor's PWM is directly controlled. 
+Dalam program loop, kecepatan keempat motor akan ditingkatkan secara perlahan dari 0 hingga 1000. Jika tipe motornya 4, yaitu motor tanpa encoder, PWM motor dikontrol secara langsung.
 
-At the same time, the data sent by the driver board is read and printed out at the same time.
+Pada saat yang sama, data yang dikirim oleh papan pengemudi dibaca dan dicetak pada saat yang sama
 
 ```
-//检验从驱动板发送过来的数据，符合通讯协议的数据则保存下来
-//Check the data sent from the driver board, and save the data that meets the communication protocol
+// Memeriksa data yang dikirim dari board driver, dan menyimpan data yang memenuhi protokol komunikasi
 void Deal_Control_Rxtemp(uint8_t rxtemp)
 {
     static u8 step = 0;
@@ -687,7 +674,7 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
     if(rxtemp == '$' &&     start_flag == 0)
     {
         start_flag = 1;
-        memset(g_recv_buff,0,RXBUFF_LEN);//清空数据 Clear data
+        memset(g_recv_buff,0,RXBUFF_LEN);  // Bersihkan data
     }
     
     else if(start_flag == 1)
@@ -697,16 +684,16 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
                 start_flag = 0;
                 step = 0;
                 g_recv_flag = 1;
-        // 检查前四个字符  Check the first four characters
+        // Periksa empat karakter pertama
     if (strncmp("MAll:",(char*)g_recv_buff,5)==0 ||
         strncmp("MTEP:",(char*)g_recv_buff,5)==0 ||
         strncmp("MSPD:",(char*)g_recv_buff,5)==0) {
         if (isValidNumbers((char*)g_recv_buff + 5)) {
-                // 如果符合条件，打印数据  If the conditions are met, print the data
+                // Jika kondisi terpenuhi, cetak data
                 memcpy(g_recv_buff_deal,g_recv_buff,RXBUFF_LEN);
             }
     } else {
-        // 不匹配时清除缓冲区，避免残留无效数据 Clear the buffer when there is no match to avoid residual invalid data
+        // Bersihkan buffer saat tidak cocok untuk menghindari data tidak valid yang tersisa
         memset(g_recv_buff, 0, RXBUFF_LEN);
     }
             }
@@ -716,7 +703,7 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
                 {
                     start_flag = 0;
                     step = 0;
-                    memset(g_recv_buff,0,RXBUFF_LEN);//清空接收数据   Clear received data
+                    memset(g_recv_buff,0,RXBUFF_LEN);  // Bersihkan data yang diterima
                 }
                 else
                 {
@@ -729,24 +716,23 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
 }
 
 
-//将从驱动板保存到的数据进行格式处理，然后准备打印
-//Format the data saved from the driver board and prepare it for printing
+// Memformat data yang disimpan dari board driver dan mempersiapkannya untuk dicetak
 void Deal_data_real(void)
 {
      static uint8_t data[RXBUFF_LEN];
    uint8_t  length = 0;
-    //总体的编码器    Overall encoder
+    // Encoder keseluruhan
      if ((strncmp("MAll",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5];  // Hapus titik dua
         }  
                 data[length] = '\0';    
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节    Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];  // Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");  // Pisahkan dengan koma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
@@ -754,39 +740,39 @@ void Deal_data_real(void)
                 }
                 
         }
-        //10ms的实时编码器数据  10ms real-time encoder data
+        // Data encoder real-time 10ms
         else if ((strncmp("MTEP",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5];  // Hapus titik dua
         }  
                 data[length] = '\0';        
 
 
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];  // Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");  // Pisahkan dengan koma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
                         Encoder_Offset[i] = atoi(mystr_temp[i]);
                 }
         }
-        //速度    Speed
+        // Kecepatan
         else if ((strncmp("MSPD",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5];  // Hapus titik dua
         }  
                 data[length] = '\0';    
                 
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];  // Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");  // Pisahkan dengan koma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
@@ -796,40 +782,38 @@ void Deal_data_real(void)
 }
 ```
 
-- Deal_Control_Rxtemp: Filter the received data and save those that meet the communication protocol.
-- Deal_data_real: Extract the saved original data and reconstruct a new print format.
+- Deal_Control_Rxtemp: Saring data yang diterima dan simpan data yang memenuhi protokol komunikasi.
+- Deal_data_real: Ekstrak data asli yang disimpan dan rekonstruksi format cetak baru.
 
-## 1.3 Experimental phenomenon
+## 1.3 Fenomena Eksperimental
 
-**Before writing the program, do not connect the driver board to the RX pin on the Arduino, otherwise the program cannot be written into the board.**
+Sebelum menulis program, jangan hubungkan papan driver ke pin RX pada Arduino, jika tidak, program tidak dapat ditulis ke papan. Setelah program ditulis, hubungkan pin RX pada Arduino.
 
-**After the program is written, connect the RX pin on the Arduino.**
+Hubungkan modul USB ke TTL ke komputer, gunakan asisten debugging port serial komputer "UartAssist", buka port serial USB ke TTL, dan Anda dapat menerima data yang diproses.
 
-Connect the USB to TTL module to the computer, use the computer's serial port debugging assistant "UartAssist", open the USB to TTL serial port, and you can receive the processed data.
+Jika Anda membuka port serial motherboard Arduino, Anda mungkin melihat bahwa port serial tersebut mencetak data asli. Setelah dinyalakan kembali, Anda dapat melihat bahwa motor akan secara bertahap bertambah cepat, lalu berhenti, dan berulang.
 
-If you open the serial port of the Arduino motherboard, you may see that the serial port prints the original data. After powering on again, you can see that the motor will gradually speed up, then stop, and repeat.
-
-At the same time, you can see that the printed motor value is constantly changing in the serial port assistant.
+Pada saat yang sama, Anda dapat melihat bahwa nilai motor cetak terus berubah dalam asisten port serial
 
 ![img](https://www.yahboom.net/public/upload/upload-html/1740571339/2.png)
 
-# For ESP32
+# Untuk ESP32
 
-## Drive motor and read encoder-USART
+## Motor penggerak dan encoder pembaca-USART
 
-## 1.1 Explanation
+## 1.1 Penjelasan
 
-**Please read 《0. Motor introduction and usage》first to understand the motor parameters, wiring method, and power supply voltage you are currently using. To avoid improper operation and damage to the driver board or motor.**
+Harap baca "0. Pengenalan dan Penggunaan Motor" terlebih dahulu untuk memahami parameter motor, metode pengkabelan, dan tegangan catu daya yang Anda gunakan. Hal ini untuk menghindari pengoperasian yang tidak tepat dan kerusakan pada papan driver atau motor.
 
-I2C and serial communication cannot be shared, only one can be selected.
+Komunikasi I2C dan serial tidak dapat dibagi, hanya satu yang dapat dipilih.
 
-This course uses the YahboomESP32 image transmission module lite version.
+Kursus ini menggunakan modul transmisi gambar YahboomESP32 versi lite.
 
-If you use other ESP32-S3 boards, you need to modify the pin settings in the program according to your board pin situation.
+Jika Anda menggunakan papan ESP32-S3 lainnya, Anda perlu mengubah pengaturan pin dalam program sesuai dengan situasi pin papan Anda.
 
-Use ESP-IDF 5.4.0 version  to compile the project.
+Gunakan ESP-IDF versi 5.4.0 untuk mengkompilasi proyek.
 
-##### Hardware wiring:
+##### Pengkabelan perangkat keras:
 
 ![img](https://www.yahboom.net/public/upload/upload-html/1740571363/1.png)
 
@@ -849,11 +833,9 @@ Use ESP-IDF 5.4.0 version  to compile the project.
 |               GND               |   GND   |
 |               5V                |   5V    |
 
-USB to TTL serial port module needs to be connected, mainly for printing data.
+Modul port serial USB ke TTL perlu dihubungkan, terutama untuk mencetak data.
 
-When using the Yahboom ESP32 image transmission module lite version, the 3V3 of the USB to TTL serial port module must be replaced with 5V and connected to the 5V on the ESP32 board to write the program normally.
-
-After the program is written, it can be switched back to 3V3.
+Saat menggunakan modul transmisi gambar Yahboom ESP32 versi lite, 3V3 dari modul port serial USB ke TTL harus diganti dengan 5V dan dihubungkan ke 5V pada papan ESP32 untuk menulis program secara normal. Setelah program ditulis, program dapat dialihkan kembali ke 3V3.
 
 | USB TO TTL | ESP32S3 |
 | :--------: | :-----: |
@@ -862,44 +844,40 @@ After the program is written, it can be switched back to 3V3.
 |    RXD     |   TX0   |
 |    GND     |   GND   |
 
-Serial port configuration: **Baud rate 115200, no parity check, no hardware flow control, 1 stop bit**
+Konfigurasi port serial: **Baud rate 115200, tidak ada pemeriksaan paritas, tidak ada kontrol aliran perangkat keras, 1 stop bit**
 
-## 1.2 Code analysis
+## 1.2 Analisis kode
 
 ```
 #define UART1_TX_PIN    36
 #define UART1_RX_PIN    35
 ```
 
-This code is defined in the `uart_module.h` file.
+Kode ini didefinisikan dalam file `uart_module.h`.
 
-If you need to change the pin for the serial port to communicate with the four-way motor driver board, you can modify the number here.
+Jika Anda perlu mengubah pin untuk port serial agar dapat berkomunikasi dengan papan penggerak motor empat arah, Anda dapat mengubah nomornya di sini.
 
-```
-#define UPLOAD_DATA 3  //0:不接受数据 1:接收总的编码器数据 2:接收实时的编码器 3:接收电机当前速度 mm/s
-                       //0: Do not receive data 1: Receive total encoder data 2: Receive real-time encoder 3: Receive current motor speed mm/s
-
-
-#define MOTOR_TYPE 1   //1:520电机 2:310电机 3:测速码盘TT电机 4:TT直流减速电机 5:L型520电机
-                       //1:520 motor 2:310 motor 3:speed code disc TT motor 4:TT DC reduction motor 5:L type 520 motor
+```c++
+#define UPLOAD_DATA 3  // 0: Tidak menerima data 1: Menerima data encoder total 2: Menerima encoder real-time 3: Menerima kecepatan motor saat ini mm/s
+#define MOTOR_TYPE 1   // 1: motor 520 2: motor 310 3: motor TT disk kode kecepatan 4: motor reduksi DC TT 5: motor 520 tipe L
 ```
 
-- UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
-- MOTOR_TYPE: used to set the type of motor used. Just modify the corresponding numbers according to the comments according to the motor you are currently using. You don’t need to modify the rest of the code.
+- UPLOAD_DATA: digunakan untuk mengatur data enkoder motor. Atur 1 ke jumlah total pulsa enkoder dan 2 ke data pulsa waktu nyata 10 ms.
+- MOTOR_TYPE: digunakan untuk mengatur jenis motor yang digunakan. Cukup ubah angka yang sesuai dengan komentar sesuai motor yang sedang Anda gunakan. Anda tidak perlu mengubah sisa kode.
 
-If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
+Jika Anda perlu menggerakkan motor dan mengamati data, cukup ubah dua angka di awal program. Sisa kode tidak perlu diubah.
 
 ```
-  #if MOTOR_TYPE == 1
-    send_motor_type(1);//配置电机类型 Configure motor type
+#if MOTOR_TYPE == 1
+    send_motor_type(1);  // Konfigurasi tipe motor
     delay(100);
-    send_pulse_phase(30);//配置减速比 查电机手册得出    Configure the reduction ratio. Check the motor manual to find out
+    send_pulse_phase(30);  // Konfigurasi rasio reduksi. Periksa manual motor untuk mengetahuinya
     delay(100);
-    send_pulse_line(11);//配置磁环线 查电机手册得出 Configure the magnetic ring wire. Check the motor manual to get the result.
+    send_pulse_line(11);  // Konfigurasi garis cincin magnetik. Periksa manual motor untuk mendapatkan hasilnya
     delay(100);
-    send_wheel_diameter(67.00);//配置轮子直径,测量得出        Configure the wheel diameter and measure it
+    send_wheel_diameter(67.00);  // Konfigurasi diameter roda dan ukur
     delay(100);
-    send_motor_deadzone(1900);//配置电机死区,实验得出 Configure the motor dead zone, and the experiment shows
+    send_motor_deadzone(1900);  // Konfigurasi zona mati motor, hasil eksperimen
     delay(100);
     
   #elif MOTOR_TYPE == 2
@@ -948,26 +926,24 @@ If you need to drive the motor and observe the data, just modify the two numbers
   #endif
 ```
 
-This is used to store the parameters of the Yahboom motor. By modifying the MOTOR_TYPE parameter above, one-click configuration can be achieved.
+Ini digunakan untuk menyimpan parameter motor Yahboom. Dengan memodifikasi parameter MOTOR_TYPE di atas, konfigurasi sekali klik dapat dilakukan.
 
-In normally, do not modify the code here when using the Yahboom motor.
+Biasanya, jangan mengubah kode di sini saat menggunakan motor Yahboom.
 
-If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
+Jika Anda menggunakan motor Anda sendiri, atau jika data tertentu perlu dimodifikasi sesuai kebutuhan Anda, Anda dapat memeriksa kursus《1.2 Perintah kontrol》 untuk memahami arti spesifik dari setiap perintah.
 
 ```
 void MotorControl_Task(void *arg) {
     static int i = 0;
     while(1) {
-        if(g_recv_flag == 1)// 接收标志检查 | Check reception flag
+        if(g_recv_flag == 1)  // Pemeriksaan flag penerimaan
         {
-            g_recv_flag = 0;// 重置标志 | Reset flag
-
-
-            // 根据电机类型选择控制方式 | Select control mode by motor type
+            g_recv_flag = 0;  // Reset flag
+            // Pilih mode kontrol berdasarkan tipe motor
             #if MOTOR_TYPE == 4
-            Contrl_Pwm(i*20,i*20,i*20,i*20);// PWM控制模式 | PWM control
+            Contrl_Pwm(i*20,i*20,i*20,i*20);  // Mode kontrol PWM
             #else
-            Contrl_Speed(i*10,i*10,i*10,i*10);// 速度控制模式 | Speed control
+            Contrl_Speed(i*10,i*10,i*10,i*10);  // Mode kontrol kecepatan
             #endif
             
             Deal_data_real();
@@ -983,14 +959,14 @@ void MotorControl_Task(void *arg) {
             i = (i < 100) ? i+1 : 0;
             delay_ms(100);
         }
-        delay_ms(1);// 防止任务卡死 | Preventing tasks from getting stuck
+        delay_ms(1);  // Mencegah tugas macet
     }
 }
 ```
 
-In the main program loop, the speed of the four motors will be slowly increased from 0 to 1000. If the motor type is 4, that is, the motor without encoder, the PWM of the motor is directly controlled. 
+Pada putaran program utama, kecepatan keempat motor akan ditingkatkan secara perlahan dari 0 hingga 1000. Jika jenis motornya adalah 4, yaitu motor tanpa enkoder, PWM motor akan dikontrol secara langsung.
 
-At the same time, the data sent by the driver board is read and printed out.
+Pada saat yang sama, data yang dikirim oleh papan pengemudi dibaca dan dicetak.
 
 ```c++
 //Memeriksa data yang dikirim dari board driver, dan menyimpan data yang memenuhi protokol komunikasi
@@ -1113,32 +1089,32 @@ void Deal_data_real(void)
 }
 ```
 
-- Deal_Control_Rxtemp: Filter the received data and save those that meet the communication protocol.
-- Deal_data_real: Extract the saved original data and reconstruct a new print format.
+- Deal_Control_Rxtemp: Saring data yang diterima dan simpan data yang memenuhi protokol komunikasi.
+- Deal_data_real: Ekstrak data asli yang disimpan dan rekonstruksi format cetak baru.
 
-## 1.3 Experimental phenomenon
+## 1.3 Fenomena Eksperimental
 
-After the wiring is correct, write the program into the mainboard. After powering on again, you can see that the motor will gradually speed up, then stop, and repeat.
+Setelah kabelnya terpasang dengan benar, tulis program ke motherboard. Setelah dinyalakan kembali, Anda dapat melihat bahwa motor akan secara bertahap bertambah cepat, lalu berhenti, dan berulang.
 
-At the same time, you can see the motor value constantly changing in the serial monitor.
+Pada saat yang sama, Anda dapat melihat nilai motor terus berubah di monitor serial.
 
 ![img](https://www.yahboom.net/public/upload/upload-html/1740571363/2.png)
 
-# For Jetson Nano
+# Untuk Jetson Nano
 
-## Drive motor and read encoder-USART
+## Motor penggerak dan encoder pembaca-USART
 
-## 1.1 Explanation
+## 1.1 Penjelasan
 
-**Please read 《0. Motor introduction and usage》first to understand the motor parameters, wiring method, and power supply voltage you are currently using. To avoid improper operation and damage to the driver board or motor.**
+Harap baca "0. Pengenalan dan Penggunaan Motor" terlebih dahulu untuk memahami parameter motor, metode pengkabelan, dan tegangan catu daya yang Anda gunakan. Hal ini untuk menghindari pengoperasian yang tidak tepat dan kerusakan pada papan driver atau motor.
 
-I2C and serial communication cannot be shared, only one can be selected.
+Komunikasi I2C dan serial tidak dapat dibagi, hanya satu yang dapat dipilih.
 
-##### Hardware wiring:
+##### Pengkabelan perangkat keras:
 
 ![img](https://www.yahboom.net/public/upload/upload-html/1740571408/1.png)
 
-When the mainboard and driver board use serial port communication, just connect the USB port on the mainboard to the TYPE-C port on the 4-channel motor driver board.
+Bila papan induk dan papan driver menggunakan komunikasi port serial, cukup sambungkan port USB pada papan induk ke port TYPE-C pada papan driver motor 4 saluran.
 
 | Motor | **4-channel motor drive board**(Motor) |
 | :---: | :------------------------------------: |
@@ -1151,25 +1127,25 @@ When the mainboard and driver board use serial port communication, just connect 
 
  
 
-## 1.2 Instructions
+## 1.2 Instruksi
 
-After Jetson board is connected to the USB interface of the driver board, you can use the following command to check whether the serial port is recognized.
+Setelah papan Jetson tersambung ke antarmuka USB papan driver, Anda dapat menggunakan perintah berikut untuk memeriksa apakah port serial dikenali.
 
 ```
 ll /dev/ttyUSB*
 ```
 
-Normally, `/dev/ttyUSB0` will be displayed. If there is no ttyUSB0 but ttyUSB1, you need to change `port='/dev/ttyUSB0'` at the beginning of the code to `port='/dev/ttyUSB1'`
+Biasanya, `/dev/ttyUSB0`akan ditampilkan. Jika tidak ada ttyUSB0 tetapi ttyUSB1, Anda perlu mengubah `port='/dev/ttyUSB0'`di awal kode menjadi`port='/dev/ttyUSB1'`
 
-Then, use file transfer software, such as WinSCP, which needs to be searched and downloaded by yourself. 
+Kemudian, gunakan perangkat lunak transfer file, seperti WinSCP, yang perlu Anda cari dan unduh sendiri.
 
-Transfer the py file to the root directory of the Jetson board through the software, then open the terminal and run the command.
+Pindahkan file py ke direktori root papan Jetson melalui perangkat lunak, lalu buka terminal dan jalankan perintah.
 
 ```
 sudo python3 ~/USART.py
 ```
 
-If the system reports a missing serial module error.
+Jika sistem melaporkan kesalahan modul serial yang hilang.
 
 ![img](https://www.yahboom.net/public/upload/upload-html/1740571408/2.png)
 
@@ -1182,17 +1158,17 @@ sudo apt install python3-serial
 
  
 
-## 1.3 Code analysis
+## 1.3 Analisis kode
 
-```
+```c++
 UPLOAD_DATA = 3  #0: Tidak menerima data 1: Menerima data encoder total 2: Menerima encoder real-time 3: Menerima kecepatan motor saat ini mm/s
 MOTOR_TYPE = 1  #1:motor 520 2:motor 310 3:motor TT disk kode kecepatan 4:motor reduksi DC TT 5:motor 520 tipe L
 ```
 
-- UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
-- MOTOR_TYPE: used to set the type of motor used. Just modify the corresponding numbers according to the comments according to the motor you are currently using. You don’t need to modify the rest of the code.
+- UPLOAD_DATA: digunakan untuk mengatur data enkoder motor. Atur 1 ke jumlah total pulsa enkoder dan 2 ke data pulsa waktu nyata 10 ms.
+- MOTOR_TYPE: digunakan untuk mengatur jenis motor yang digunakan. Cukup ubah angka yang sesuai dengan komentar sesuai motor yang sedang Anda gunakan. Anda tidak perlu mengubah sisa kode.
 
-If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
+Jika Anda perlu menggerakkan motor dan mengamati data, cukup ubah dua angka di awal program. Sisa kode tidak perlu diubah.
 
 ```c++
 def set_motor_parameter():
@@ -1249,11 +1225,11 @@ def set_motor_parameter():
         time.sleep(0.1)
 ```
 
-This is used to store the parameters of the Yahboom motor. By modifying the MOTOR_TYPE parameter above, one-click configuration can be achieved.
+Ini digunakan untuk menyimpan parameter motor Yahboom. Dengan memodifikasi parameter MOTOR_TYPE di atas, konfigurasi sekali klik dapat dilakukan.
 
-In normally, do not modify the code here when using the Yahboom motor.
+Biasanya, jangan mengubah kode di sini saat menggunakan motor Yahboom.
 
-If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
+Jika Anda menggunakan motor Anda sendiri, atau jika data tertentu perlu dimodifikasi sesuai kebutuhan Anda, Anda dapat memeriksa kursus《1.2 Perintah kontrol》 untuk memahami arti spesifik dari setiap perintah.
 
 ```c++
 if __name__ == "__main__":
@@ -1283,9 +1259,7 @@ if __name__ == "__main__":
             time.sleep(0.1)
 ```
 
-In the main program loop, the speed of the four motors will be slowly increased from 0 to 1000. If the motor type is 4, that is, the motor without encoder, the PWM of the motor is directly controlled. 
-
-At the same time, the data sent by the driver board is read and printed out.
+Pada putaran program utama, kecepatan keempat motor akan ditingkatkan secara perlahan dari 0 hingga 1000. Jika jenis motornya adalah 4, yaitu motor tanpa enkoder, PWM motor akan dikontrol secara langsung.  Pada saat yang sama, data yang dikirim oleh papan pengemudi dibaca dan dicetak.
 
 ```
 def parse_data(data):
@@ -1309,25 +1283,23 @@ def parse_data(data):
 
 Extract the saved original data and reconstruct it into a new printing format.
 
-## 1.4 Experimental phenomenon
+## 1.4 Fenomena Eksperimental
 
-After connecting the type-c port on the driver board to the USB port on the motherboard, place the program in the root directory and run the command `sudo python3 ~/USART.py`. You can see that the motor will gradually speed up, then stop, and repeat.
+Setelah menghubungkan port Tipe-C pada papan driver ke port USB pada motherboard, letakkan program di direktori root dan jalankan perintah `sudo python3 ~/USART.py`. Anda dapat melihat bahwa motor akan secara bertahap mempercepat, lalu berhenti, dan berulang.
 
-At the same time, you can see the printed motor value in the terminal constantly changing.
+Pada saat yang sama, Anda dapat melihat nilai motor tercetak di terminal yang terus berubah.
 
 ## For PICO2
 
-# Drive motor and read encoder-USART
+# Motor penggerak dan encoder pembaca-USART
 
-## 1.1 Explanation
+## 1.1 Penjelasan
 
-**Please read 《0. Motor introduction and usage》first to understand the motor parameters, wiring method, and power supply voltage you are currently using. To avoid improper operation and damage to the driver board or motor.**
+Harap baca "0. Pengenalan dan Penggunaan Motor" terlebih dahulu untuk memahami parameter motor, metode pengkabelan, dan tegangan catu daya yang Anda gunakan. Hal ini untuk menghindari pengoperasian yang tidak tepat dan kerusakan pada papan driver atau motor.
 
-I2C and serial communication cannot be shared, only one can be selected.
+Komunikasi I2C dan serial tidak dapat dibagi, hanya satu yang dapat dipilih.
 
-##### Hardware wiring:
-
-![img](./assets/0.png)
+##### Pengkabelan perangkat keras:![img](./assets/0.png)
 
 ![img](./assets/1-1761604601349-49.png)
 
@@ -1351,21 +1323,19 @@ I2C and serial communication cannot be shared, only one can be selected.
 
 ## 1.2 Instructions
 
-Open the code using Thonny software, connect to the Raspberry Pi pico2, and click the stop button on the far right of the upper toolbar.
+Buka kode menggunakan perangkat lunak Thonny, hubungkan ke Raspberry Pi pico2, dan klik tombol berhenti di ujung kanan bilah alat atas.
 
 ![img](./assets/2-1761604601349-50.png)
 
-Then, you can see the information of the current firmware in pico2 pop up in the message bar at the bottom, which means that the software has recognized the serial port.
+Kemudian, Anda dapat melihat informasi firmware saat ini di pico2 muncul di bilah pesan di bagian bawah, yang berarti perangkat lunak telah mengenali port serial.
 
 ![img](./assets/3-1761604601349-51.png)
 
-If the message bar here shows that the serial port cannot be recognized, you need to refer to the firmware flashing tutorial and flash the firmware to the motherboard so that the serial port can be recognized.
+Jika pesan di sini menunjukkan bahwa port serial tidak dapat dikenali, Anda perlu merujuk ke tutorial flashing firmware dan mem-flash firmware ke motherboard agar port serial dapat dikenali.
 
 ![img](./assets/4-1761604601349-52.png)
 
- 
-
-After successfully identifying the serial port and printing the firmware information, click the green button to start running the script.
+ Setelah berhasil mengidentifikasi port serial dan mencetak informasi firmware, klik tombol hijau untuk mulai menjalankan skrip.
 
 ![img](./assets/5-1761604601349-53.png)
 
@@ -1376,10 +1346,10 @@ UPLOAD_DATA = 3  #0: Tidak menerima data 1: Menerima data encoder total 2: Mener
 MOTOR_TYPE = 1  #1: motor 520 2: motor 310 3: motor TT disk kode kecepatan 4: motor reduksi DC TT 5: motor 520 tipe L
 ```
 
-- UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
-- MOTOR_TYPE: used to set the type of motor used. Just modify the corresponding numbers according to the comments according to the motor you are currently using. You don’t need to modify the rest of the code.
+- UPLOAD_DATA: digunakan untuk mengatur data enkoder motor. Atur 1 ke jumlah total pulsa enkoder dan 2 ke data pulsa waktu nyata 10 ms.
+- MOTOR_TYPE: digunakan untuk mengatur jenis motor yang digunakan. Cukup ubah angka yang sesuai dengan komentar sesuai motor yang sedang Anda gunakan. Anda tidak perlu mengubah sisa kode.
 
-If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
+Jika Anda perlu menggerakkan motor dan mengamati data, cukup ubah dua angka di awal program. Sisa kode tidak perlu diubah.
 
 ```c++
 def set_motor_parameter():
@@ -1436,11 +1406,11 @@ def set_motor_parameter():
         time.sleep(0.1)
 ```
 
-This is used to store the parameters of the Yahboom motor. By modifying the MOTOR_TYPE parameter above, one-click configuration can be achieved.
+Ini digunakan untuk menyimpan parameter motor Yahboom. Dengan memodifikasi parameter MOTOR_TYPE di atas, konfigurasi sekali klik dapat dilakukan.
 
-In normally, do not modify the code here when using the Yahboom motor.
+Biasanya, jangan mengubah kode di sini saat menggunakan motor Yahboom.
 
-If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
+Jika Anda menggunakan motor Anda sendiri, atau jika data tertentu perlu dimodifikasi sesuai kebutuhan Anda, Anda dapat memeriksa kursus《1.2 Perintah kontrol》 untuk memahami arti spesifik dari setiap perintah.
 
 ```c++
 if __name__ == "__main__":
@@ -1471,9 +1441,9 @@ if __name__ == "__main__":
             time.sleep(0.1)
 ```
 
-In the loop program, the speed of the four motors will be slowly increased from 0 to 1000. If the motor type is 4, that is, the motor without encoder, the motor's PWM is directly controlled. 
+Dalam program loop, kecepatan keempat motor akan ditingkatkan secara perlahan dari 0 hingga 1000. Jika tipe motornya 4, yaitu motor tanpa encoder, PWM motor dikontrol secara langsung.
 
-At the same time, the data sent by the driver board is read and printed out at the same time.
+Pada saat yang sama, data yang dikirim oleh papan pengemudi dibaca dan dicetak pada saat yang sama.
 
 ```
 # Menerima data
@@ -1510,17 +1480,17 @@ def parse_data(data):
         return parsed
 ```
 
-After getting the data from the driver board, it is shifted, and the shift is required to get the correct data.
+Setelah mendapatkan data dari papan pengemudi, maka dilakukan pemindahan gigi, dan pemindahan gigi tersebut diperlukan untuk mendapatkan data yang benar.
 
  
 
-## 1.4 Experimental phenomenon
+## 1.4 Fenomena Eksperimental
 
-After the wiring is correct, plug the motherboard into the USB port of the computer, and then click the red stop button on the software. Under normal circumstances, you can see the firmware information pop up in the message bar below.
+Setelah kabel terpasang dengan benar, colokkan motherboard ke port USB komputer, lalu klik tombol berhenti berwarna merah pada perangkat lunak. Biasanya, Anda akan melihat informasi firmware muncul di bilah pesan di bawah.
 
-Then, click the green run button, and you can see that the motor will gradually speed up, then stop, and repeat.
+Kemudian, klik tombol jalankan berwarna hijau, dan Anda dapat melihat bahwa motor akan secara bertahap menambah kecepatan, lalu berhenti, dan mengulanginya lagi.
 
-At the same time, you can see the printed motor value in the message bar constantly changing.
+Pada saat yang sama, Anda dapat melihat nilai motor yang dicetak pada bilah pesan terus berubah.
 
 ![img](./assets/6-1761604601349-54.png)
 
@@ -1528,17 +1498,19 @@ At the same time, you can see the printed motor value in the message bar constan
 
 # Drive motor and read encoder-USART
 
-## 1.1 Explanation
+# Motor penggerak dan encoder pembaca-USART
 
-**Please read 《0. Motor introduction and usage》first to understand the motor parameters, wiring method, and power supply voltage you are currently using. To avoid improper operation and damage to the driver board or motor.**
+## 1.1 Penjelasan
 
-I2C and serial communication cannot be shared, only one can be selected.
+Harap baca "0. Pengenalan dan Penggunaan Motor" terlebih dahulu untuk memahami parameter motor, metode pengkabelan, dan tegangan catu daya yang Anda gunakan. Hal ini untuk menghindari pengoperasian yang tidak tepat dan kerusakan pada papan driver atau motor.
 
-##### Hardware wiring:
+Komunikasi I2C dan serial tidak dapat dibagi, hanya satu yang dapat dipilih.
+
+##### Pengkabelan perangkat keras:
 
 ![img](./assets/1-1761604694486-69.png)
 
-When RDK board and driver board use serial port communication, just connect the USB port on the mainboard to the TYPE-C port on the 4-channel motor driver board.
+Bila papan RDK dan papan driver menggunakan komunikasi port serial, cukup sambungkan port USB pada papan utama ke port TYPE-C pada papan driver motor 4 saluran.
 
 | Motor | 4-channel motor driver board(Motor) |
 | :---: | :---------------------------------: |
@@ -1549,19 +1521,19 @@ When RDK board and driver board use serial port communication, just connect the 
 |   G   |                 GND                 |
 |  M1   |                 M+                  |
 
-## 1.2 Instructions
+## 1.2 Instruksi
 
-After the RDK board is connected to the USB of the driver board, you can use the following command to check whether the serial port is recognized.
+Setelah papan RDK tersambung ke USB papan driver, Anda dapat menggunakan perintah berikut untuk memeriksa apakah port serial dikenali.
 
 ```
 ll /dev/ttyUSB*
 ```
 
-In normally, `/dev/ttyUSB0` will be displayed. If there is no ttyUSB0 but ttyUSB1, you need to change `port='/dev/ttyUSB0'` at the beginning of the code to `port='/dev/ttyUSB1'`
+Biasanya, `/dev/ttyUSB0`akan ditampilkan. Jika tidak ada ttyUSB0 tetapi ttyUSB1, Anda perlu mengubah `port='/dev/ttyUSB0'`di awal kode menjadi`port='/dev/ttyUSB1'`
 
-Then, use file transfer software, such as WinSCP, which needs to be searched and downloaded by yourself. 
+Kemudian, gunakan perangkat lunak transfer file, seperti WinSCP, yang perlu Anda cari dan unduh sendiri.
 
-Transfer the py file to the root directory of the RDK board through the software, then open the terminal and run the command.
+Pindahkan file py ke direktori root papan RDK melalui perangkat lunak, lalu buka terminal dan jalankan perintah.
 
 ```
 sudo python ~/USART.py
@@ -1569,39 +1541,31 @@ sudo python ~/USART.py
 
  
 
-## 1.3 Code analysis
+## 1.3 Analisis kode
 
-```
-UPLOAD_DATA = 3  #0:不接受数据 1:接收总的编码器数据 2:接收实时的编码器 3:接收电机当前速度 mm/s
-                 #0: Do not receive data 1: Receive total encoder data 2: Receive real-time encoder 3: Receive current motor speed mm/s
-
-
-MOTOR_TYPE = 1  #1:520电机 2:310电机 3:测速码盘TT电机 4:TT直流减速电机 5:L型520电机
-                #1:520 motor 2:310 motor 3:speed code disc TT motor 4:TT DC reduction motor 5:L type 520 motor
+```c++
+UPLOAD_DATA = 3  # 0: Tidak menerima data 1: Menerima data encoder total 2: Menerima encoder real-time 3: Menerima kecepatan motor saat ini mm/s
+MOTOR_TYPE = 1  # 1: motor 520 2: motor 310 3: motor TT disk kode kecepatan 4: motor reduksi DC TT 5: motor 520 tipe L
 ```
 
-- UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
-- MOTOR_TYPE: used to set the type of motor used. Just modify the corresponding numbers according to the comments according to the motor you are currently using. You don’t need to modify the rest of the code.
+- UPLOAD_DATA: digunakan untuk mengatur data enkoder motor. Atur 1 ke jumlah total pulsa enkoder dan 2 ke data pulsa waktu nyata 10 ms.
+- MOTOR_TYPE: digunakan untuk mengatur jenis motor yang digunakan. Cukup ubah angka yang sesuai dengan komentar sesuai motor yang sedang Anda gunakan. Anda tidak perlu mengubah sisa kode.
 
-If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
+Jika Anda perlu menggerakkan motor dan mengamati data, cukup ubah dua angka di awal program. Sisa kode tidak perlu diubah.
 
-```
+```c++
 def set_motor_parameter():
-
-
     if MOTOR_TYPE == 1:
-        set_motor_type(1)  # 配置电机类型
+        set_motor_type(1)  # Konfigurasi tipe motor
         time.sleep(0.1)
-        set_pluse_phase(30)  # 配置减速比，查电机手册得出
+        set_pluse_phase(30)  # Konfigurasi rasio reduksi, periksa manual motor
         time.sleep(0.1)
-        set_pluse_line(11)  # 配置磁环线，查电机手册得出
+        set_pluse_line(11)  # Konfigurasi garis cincin magnetik, periksa manual motor
         time.sleep(0.1)
-        set_wheel_dis(67.00)  # 配置轮子直径，测量得出
+        set_wheel_dis(67.00)  # Konfigurasi diameter roda, hasil pengukuran
         time.sleep(0.1)
-        set_motor_deadzone(1900)  # 配置电机死区，实验得出
+        set_motor_deadzone(1900)  # Konfigurasi zona mati motor, hasil eksperimen
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 2:
         set_motor_type(2)
         time.sleep(0.1)
@@ -1613,8 +1577,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1600)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 3:
         set_motor_type(3)
         time.sleep(0.1)
@@ -1626,8 +1588,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1250)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 4:
         set_motor_type(4)
         time.sleep(0.1)
@@ -1635,8 +1595,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1000)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 5:
         set_motor_type(1)
         time.sleep(0.1)
@@ -1648,68 +1606,52 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1900)
         time.sleep(0.1)
-
-
 ```
 
-This is used to store the parameters of the Yahboom motor. By modifying the MOTOR_TYPE parameter above, one-click configuration can be achieved.
+Ini digunakan untuk menyimpan parameter motor Yahboom. Dengan memodifikasi parameter MOTOR_TYPE di atas, konfigurasi sekali klik dapat dilakukan.
 
-In normally, do not modify the code here when using the Yahboom motor.
+Biasanya, jangan mengubah kode di sini saat menggunakan motor Yahboom.
 
-If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
+Jika Anda menggunakan motor Anda sendiri, atau jika data tertentu perlu dimodifikasi sesuai kebutuhan Anda, Anda dapat memeriksa kursus《1.2 Perintah kontrol》 untuk memahami arti spesifik dari setiap perintah.
 
 ```
 if __name__ == "__main__":
     try:
         t = 0
         print("please wait...")
-        send_upload_command(UPLOAD_DATA)#给电机模块发送需要上报的数据 Send the data that needs to be reported to the motor module
+        send_upload_command(UPLOAD_DATA)  # Kirim data yang perlu dilaporkan ke modul motor
         time.sleep(0.1)
-        set_motor_parameter()#设计电机参数  Design motor parameters
-
-
+        set_motor_parameter()  # Atur parameter motor
         while True:
-            received_message = receive_data()  # 接收消息    Receiving Messages
-            if received_message:    # 如果有数据返回 If there is data returned
-                parsed = parse_data(received_message) # 解析数据 Parsing the data
+            received_message = receive_data()  # Menerima pesan
+            if received_message:  # Jika ada data yang dikembalikan
+                parsed = parse_data(received_message)  # Parsing data
                 if parsed:
-                    print(parsed)  # 打印解析后的数据   Print the parsed data
-
-
+                    print(parsed)  # Cetak data yang telah di-parsing
             t += 10
             M1 = t
             M2 = t
             M3 = t
             M4 = t
-
-
             if MOTOR_TYPE == 4:
                 control_pwm(M1*2, M2*2, M3*2, M4*2)
             else:
-                control_speed(M1, M2, M3, M4)#直接发送命令控制电机  Send commands directly to control the motor
-
-
+                control_speed(M1, M2, M3, M4)  # Kirim perintah langsung untuk mengontrol motor
             if t> 1000 or t < -1000:
                 t = 0
-
-
             time.sleep(0.1)
-
-
 ```
 
-In the loop program, the speed of the four motors will be slowly increased from 0 to 1000. If the motor type is 4, that is, the motor without encoder, the motor's PWM is directly controlled. 
+Dalam program loop, kecepatan keempat motor akan ditingkatkan secara perlahan dari 0 hingga 1000. Jika tipe motornya 4, yaitu motor tanpa encoder, PWM motor dikontrol secara langsung.
 
-At the same time, the data sent by the driver board is read and printed out at the same time.
+Pada saat yang sama, data yang dikirim oleh papan pengemudi dibaca dan dicetak pada saat yang sama.
 
 ```
 def parse_data(data):
-    data = data.strip()  # 去掉两端的空格或换行符   Remove spaces or line breaks at both ends
-
-
+    data = data.strip()  # Hapus spasi atau baris baru di kedua ujung
     if data.startswith("$MAll:"):
-        values_str = data[6:-1]  # 去除 "$MAll:" 和 "#" Remove "$MAll:" and "#"
-        values = list(map(int, values_str.split(',')))  # 分割并转换为整数  Split and convert to integer
+        values_str = data[6:-1]  # Hapus "$MAll:" dan "#"
+        values = list(map(int, values_str.split(',')))  # Pisahkan dan konversi ke integer
         parsed = ', '.join([f"M{i+1}:{value}" for i, value in enumerate(values)])
         return parsed
     elif data.startswith("$MTEP:"):
@@ -1722,41 +1664,39 @@ def parse_data(data):
         values = [float(value) if '.' in value else int(value) for value in values_str.split(',')]
         parsed = ', '.join([f"M{i+1}:{value}" for i, value in enumerate(values)])
         return parsed
-
-
 ```
 
-The saved original data is extracted and reconstructed into a new printing format.
+Data asli yang disimpan diekstraksi dan direkonstruksi ke dalam format pencetakan baru.
 
-## 1.4 Experimental phenomenon
+## 1.4 Fenomena Eksperimental
 
-After connecting the type-c port on the driver board to the USB port on the motherboard, place the program in the root directory and run the command `sudo python ~/USART.py`. You can see that the motor will gradually speed up, then stop, and repeat.
+Setelah menghubungkan port Tipe-C pada papan driver ke port USB pada motherboard, letakkan program di direktori root dan jalankan perintah `sudo python ~/USART.py`. Anda dapat melihat bahwa motor akan secara bertahap mempercepat, lalu berhenti, dan berulang.
 
-At the same time, you can see the printed motor value in the terminal constantly changing.
+Pada saat yang sama, Anda dapat melihat nilai motor tercetak di terminal yang terus berubah.
 
 ![img](./assets/2-1761604694486-70.png)
 
 ## For STM32
 
-# Control car and read encoder-USART
+# Kontrol mobil dan baca encoder-USART
 
-## 1.1 Explanation
+## 1.1 Penjelasan
 
-**Please read 《0. Motor introduction and usage》first to understand the motor parameters, wiring method, and power supply voltage you are currently using. To avoid improper operation and damage to the driver board or motor.**
+Harap baca "0. Pengenalan dan Penggunaan Motor" terlebih dahulu untuk memahami parameter motor, metode pengkabelan, dan tegangan catu daya yang Anda gunakan. Hal ini untuk menghindari pengoperasian yang tidak tepat dan kerusakan pada papan driver atau motor.
 
-I2C and serial communication cannot be shared, only one can be selected. Both STM32C8T6 and RCT6 are compatible with this project.
+Komunikasi I2C dan serial tidak dapat digunakan bersama, hanya satu yang dapat dipilih. STM32C8T6 dan RCT6 kompatibel dengan proyek ini.
 
-**The 4 motor interfaces on the module correspond to motors on robot car, as shown below**
+**4 antarmuka motor pada modul sesuai dengan motor pada mobil robot, seperti yang ditunjukkan di bawah ini**
 
-M1 -> Upper left motor (left front wheel of the car) 
+M1 -> Motor kiri atas (roda depan kiri mobil)
 
-M2 -> Lower left motor (left rear wheel of the car) 
+M2 -> Motor kiri bawah (roda belakang kiri mobil)
 
-M3 -> Upper right motor (right front wheel of the car) 
+M3 -> Motor kanan atas (roda depan kanan mobil)
 
-M4 -> Lower right motor (right rear wheel of the car)
+M4 -> Motor kanan bawah (roda belakang kanan mobil)
 
-##### Hardware wiring:
+##### Pengkabelan perangkat keras:
 
 ![img](./assets/1-1761604788915-75.png)
 
@@ -1776,9 +1716,9 @@ M4 -> Lower right motor (right rear wheel of the car)
 |   G   |                  GND                   |
 |  M1   |                   M+                   |
 
-USB to TTL serial port module needs to be connected to print the processed encoder data.
+Modul port serial USB ke TTL perlu dihubungkan untuk mencetak data encoder yang diproses.
 
-If you are using Yahboom STM32, you can directly connect the TYPE-C interface on the STM32 development board to the computer USB port, and you can also achieve serial port printing, so you don't need to connect a USB to TTL serial port module.
+Jika Anda menggunakan Yahboom STM32, Anda dapat langsung menghubungkan antarmuka TYPE-C pada papan pengembangan STM32 ke port USB komputer, dan Anda juga dapat mencapai pencetakan port serial, jadi Anda tidak perlu menghubungkan modul port serial USB ke TTL.
 
 | USB TO TTL | STM32C8T6/STM32RCT6 |
 | :--------: | :-----------------: |
@@ -1787,11 +1727,11 @@ If you are using Yahboom STM32, you can directly connect the TYPE-C interface on
 |    RXD     |         PA9         |
 |    TXD     |        PA10         |
 
-Serial port configuration: **Baud rate 115200, no parity check, no hardware flow control, 1 stop bit**
+Konfigurasi port serial: Baud rate 115200, tidak ada pemeriksaan paritas, tidak ada kontrol aliran perangkat keras, 1 stop bit
 
-##### *Note: The serial port here is used to print data on the serial port assistant, not for communication with the driver board*
+##### Catatan: Port serial di sini digunakan untuk mencetak data pada asisten port serial, bukan untuk komunikasi dengan papan driver
 
-## 1.2 Code analysis
+## 1.2 Analisis kode
 
 ```
 #define UPLOAD_DATA 2  // 1:接收总的编码器数据 2:接收实时的编码器 1: Receive total encoder data 2: Receive real-time encoder data
@@ -1801,22 +1741,22 @@ Serial port configuration: **Baud rate 115200, no parity check, no hardware flow
                        //1:520 motor 2:310 motor 3:speed code disc TT motor 4:TT DC reduction motor 5:L type 520 motor
 ```
 
-- UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
-- MOTOR_TYPE: used to set the type of motor used. Just modify the corresponding numbers according to the comments according to the motor you are currently using. You don’t need to modify the rest of the code.
+- UPLOAD_DATA: digunakan untuk mengatur data enkoder motor. Atur 1 ke jumlah total pulsa enkoder dan 2 ke data pulsa waktu nyata 10 ms.
+- MOTOR_TYPE: digunakan untuk mengatur jenis motor yang digunakan. Cukup ubah angka yang sesuai dengan komentar sesuai motor yang sedang Anda gunakan. Anda tidak perlu mengubah sisa kode.
 
-If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
+Jika Anda perlu menggerakkan motor dan mengamati data, cukup ubah dua angka di awal program. Sisa kode tidak perlu diubah.
 
 ```
-    #if MOTOR_TYPE == 1
-    send_motor_type(1);//配置电机类型 Configure motor type
+#if MOTOR_TYPE == 1
+    send_motor_type(1);  // Konfigurasi tipe motor
     delay_ms(100);
-    send_pulse_phase(30);//配置减速比 查电机手册得出    Configure the reduction ratio. Check the motor manual to find out
+    send_pulse_phase(30);  // Konfigurasi rasio reduksi. Periksa manual motor untuk mengetahuinya
     delay_ms(100);
-    send_pulse_line(11);//配置磁环线 查电机手册得出 Configure the magnetic ring wire. Check the motor manual to get the result.
+    send_pulse_line(11);  // Konfigurasi garis cincin magnetik. Periksa manual motor untuk mendapatkan hasilnya
     delay_ms(100);
-    send_wheel_diameter(67.00);//配置轮子直径,测量得出        Configure the wheel diameter and measure it
+    send_wheel_diameter(67.00);  // Konfigurasi diameter roda dan ukur
     delay_ms(100);
-    send_motor_deadzone(1900);//配置电机死区,实验得出 Configure the motor dead zone, and the experiment shows
+    send_motor_deadzone(1900);  // Konfigurasi zona mati motor, hasil eksperimen
     delay_ms(100);
     
     #elif MOTOR_TYPE == 2
@@ -1865,11 +1805,11 @@ If you need to drive the motor and observe the data, just modify the two numbers
     #endif
 ```
 
-This is used to store the parameters of the Yahboom motor. By modifying the MOTOR_TYPE parameter above, one-click configuration can be achieved.
+Ini digunakan untuk menyimpan parameter motor Yahboom. Dengan memodifikasi parameter MOTOR_TYPE di atas, konfigurasi sekali klik dapat dilakukan.
 
-In normally, do not modify the code here when using the Yahboom motor.
+Biasanya, jangan mengubah kode di sini saat menggunakan motor Yahboom.
 
-If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
+Jika Anda menggunakan motor Anda sendiri, atau jika data tertentu perlu dimodifikasi sesuai kebutuhan Anda, Anda dapat memeriksa kursus《1.2 Perintah kontrol》 untuk memahami arti spesifik dari setiap perintah.
 
 ```
     while(1)
@@ -1903,23 +1843,20 @@ If you are using your own motor, or if a certain data needs to be modified accor
 
 ```
 
-A 100ms timer is set in the program. Each time the timer interrupt is triggered, the times variable will be incremented by one. When it reaches 25 times, that is, 2.5 seconds, the motion state of the car will be changed.
+Pengatur waktu 100 ms diatur dalam program. Setiap kali interupsi pengatur waktu dipicu, variabel waktu akan bertambah satu. Ketika mencapai 25 kali, yaitu 2,5 detik, status gerak mobil akan berubah.
 
-If the motor type is 4, that is, the motor without encoder, then the pwm version of the car state switching function is used. At the same time, read the data sent by the driver board and print the data out at the same time.
+Jika tipe motornya 4, yaitu motor tanpa enkoder, maka versi PWM dari fungsi pengalih status mobil digunakan. Pada saat yang sama, data yang dikirim oleh papan driver dibaca dan data tersebut dicetak.
 
 ```
-//检验从驱动板发送过来的数据，符合通讯协议的数据则保存下来
-//Check the data sent from the driver board, and save the data that meets the communication protocol
+// Memeriksa data yang dikirim dari board driver, dan menyimpan data yang memenuhi protokol komunikasi
 void Deal_Control_Rxtemp(uint8_t rxtemp)
 {
     static u16 step = 0;
     static u8 start_flag = 0;
-
-
     if(rxtemp == '$' &&     start_flag == 0)
     {
         start_flag = 1;
-        memset(g_recv_buff,0,RXBUFF_LEN);//清空数据 Clear data
+        memset(g_recv_buff,0,RXBUFF_LEN);  // Bersihkan data
     }
     
     else if(start_flag == 1)
@@ -1929,7 +1866,7 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
                 start_flag = 0;
                 step = 0;
                 g_recv_flag = 1;
-                memcpy(g_recv_buff_deal,g_recv_buff,RXBUFF_LEN); //只有正确才会赋值 Only correct ones will be assigned
+                memcpy(g_recv_buff_deal,g_recv_buff,RXBUFF_LEN);  // Hanya yang benar yang akan ditugaskan
             }
             else
             {
@@ -1937,7 +1874,7 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
                 {
                     start_flag = 0;
                     step = 0;
-                    memset(g_recv_buff,0,RXBUFF_LEN);//清空接收数据   Clear received data
+                    memset(g_recv_buff,0,RXBUFF_LEN);  // Bersihkan data yang diterima
                 }
                 else
                 {
@@ -1948,30 +1885,25 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
     }
     
 }
-
-
-//将从驱动板保存到的数据进行格式处理，然后准备打印
-//Format the data saved from the driver board and prepare it for printing
+// Memformat data yang disimpan dari board driver dan mempersiapkannya untuk dicetak
 void Deal_data_real(void)
 {
     static uint8_t data[RXBUFF_LEN];
     uint8_t  length = 0;
     
-    //总体的编码器    Overall encoder
+    // Encoder keseluruhan
      if ((strncmp("MAll",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5];  // Hapus titik dua
         }  
                 data[length] = '\0';    
-
-
                     
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节    Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];  // Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");  // Pisahkan dengan koma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
@@ -1979,39 +1911,37 @@ void Deal_data_real(void)
                 }
                 
         }
-        //10ms的实时编码器数据  10ms real-time encoder data
+        // Data encoder real-time 10ms
         else if ((strncmp("MTEP",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5];  // Hapus titik dua
         }  
                 data[length] = '\0';        
-
-
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];  // Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");  // Pisahkan dengan koma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
                         Encoder_Offset[i] = atoi(mystr_temp[i]);
                 }
         }
-        //速度    Speed
+        // Kecepatan
         else if ((strncmp("MSPD",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5];  // Hapus titik dua
         }  
                 data[length] = '\0';    
                 
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];  // Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");  // Pisahkan dengan koma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
@@ -2019,17 +1949,15 @@ void Deal_data_real(void)
                 }
         }
 }
-
-
 ```
 
-- Deal_Control_Rxtemp: Filter the received data and save those that meet the communication protocol.
-- Deal_data_real: Extract the saved original data and reconstruct a new print format.
+- Deal_Control_Rxtemp: Saring data yang diterima dan simpan data yang memenuhi protokol komunikasi.
+- Deal_data_real: Ekstrak data asli yang disimpan dan rekonstruksi format cetak baru.
 
-## 1.3 Experimental phenomenon
+## 1.3 Fenomena Eksperimental
 
-After the wiring is correct, write the program into the mainboard. After resetting, you can see that the car will move forward for 2.5S, move backward for 2.5S, rotate right for 2.5S, rotate left for 2.5S, then stop for 2.5S, and continue the above state switching actions.
+Setelah kabel terpasang dengan benar, tulis program ke motherboard. Setelah pengaturan ulang, Anda dapat melihat bahwa mobil akan bergerak maju selama 2,5 detik, mundur selama 2,5 detik, belok kanan selama 2,5 detik, belok kiri selama 2,5 detik, lalu berhenti selama 2,5 detik, dan melanjutkan tindakan pengalihan status di atas.
 
-At the same time, you can see that the printed motor values are constantly changing in the serial port assistant.
+Pada saat yang sama, Anda dapat melihat bahwa nilai motor yang dicetak terus berubah dalam asisten port serial.
 
 ![img](./assets/2-1761604788916-76.png)
