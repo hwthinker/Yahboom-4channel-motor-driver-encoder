@@ -1,551 +1,544 @@
 # Welcome to 4-Channel Motor Drive Module repository
 
-## 1.1 Introduction to 4-channel motor drive board
-
-# Introduction to 4-channel motor drive board
+## 1.1 Pengenalan Board Driver Motor 4-Channel
 
 ![image-20251028052746916](./assets/image-20251028052746916.png)
 
-### Product Introduction:
+### Pengenalan Produk:
 
-The 4-channel encoder motor driver module integrates a high-performance single-chip coprocessor, which can be seamlessly connected with multiple controllers such as MSPM0, STM32, Raspberry Pi and Jetson through serial port or IIC communication, simplifying the driving process. 
+Modul driver motor encoder 4-channel mengintegrasikan koprosesor chip tunggal berkinerja tinggi, yang dapat terhubung dengan mulus dengan berbagai kontroler seperti MSPM0, STM32, Raspberry Pi dan Jetson melalui komunikasi port serial atau IIC, menyederhanakan proses penggerak.
 
-Only four connecting wires are needed to achieve efficient communication with the main control unit to easily control the motor and obtain encoder data, reducing the number of wiring and reducing the difficulty of operation. 
+Hanya membutuhkan empat kabel penghubung untuk mencapai komunikasi efisien dengan unit kontrol utama untuk dengan mudah mengontrol motor dan mendapatkan data encoder, mengurangi jumlah kabel dan mengurangi kesulitan operasi.
 
-At the same time, it supports driving most Hall encoder TT motors, 520/310 and other DC reduction motors on the market.
+Pada saat yang sama, mendukung penggerak sebagian besar motor TT encoder Hall, motor reduksi DC 520/310 dan lainnya di pasaran.
 
-### Parameter table:
+### Tabel Parameter:
 
-| Tech specs                            |            Parameters            |
-| :------------------------------------ | :------------------------------: |
-| Input Voltage recommended             |              5-12v               |
-| DC Current for 5v Pin                 |               0.7A               |
-| DC Current for 3.3v Pin               |              500ma               |
-| Single motor continuous drive current | Default 4A (maximum output 5.5A) |
-| Length * Width * High                 |         56 * 65 * 13.4mm         |
-| Encoder motor interface               |  PH2.0-6PIN、Dupont line socket  |
-| DC motor interface                    |           XH2.54-2PIN            |
+| Spesifikasi Teknis                         |             Parameter             |
+| :----------------------------------------- | :-------------------------------: |
+| Tegangan Input yang Direkomendasikan       |               5-12v               |
+| Arus DC untuk Pin 5v                       |               0.7A                |
+| Arus DC untuk Pin 3.3v                     |               500ma               |
+| Arus penggerak berkelanjutan motor tunggal | Default 4A (output maksimum 5.5A) |
+| Panjang * Lebar * Tinggi                   |         56 * 65 * 13.4mm          |
+| Interface motor encoder                    |  PH2.0-6PIN、soket kabel Dupont   |
+| Interface motor DC                         |            XH2.54-2PIN            |
 
-## The 4 motor interfaces on the module correspond to motors on robot car, as shown below
+## 4 interface motor pada modul sesuai dengan motor pada mobil robot, seperti ditunjukkan di bawah ini
 
-M1 -> Upper left motor (left front wheel of the car) M2 -> Lower left motor (left rear wheel of the car) M3 -> Upper right motor (right front wheel of the car) M4 -> Lower right motor (right rear wheel of the car)
+M1 -> Motor kiri atas (roda depan kiri mobil) M2 -> Motor kiri bawah (roda belakang kiri mobil) M3 -> Motor kanan atas (roda depan kanan mobil) M4 -> Motor kanan bawah (roda belakang kanan mobil)
 
-## Serial port configuration
+## Konfigurasi Port Serial
 
-**Baud rate 115200, no parity, no hardware flow control, 1 stop bit**
+**Baud rate 115200, tanpa paritas, tanpa kontrol aliran perangkat keras, 1 stop bit**
 
  
 
-### 1.Configure motor type
+### 1.Konfigurasi Tipe Motor
 
-|  Command  | Explanation |  Example  |            Remark            | Firmware Defaults | Power off save |
-| :-------: | :---------: | :-------: | :--------------------------: | :---------------: | :------------: |
-| $mtype:x# | Motor model | $mtype:1# | The motor model is 520 motor |     520 motor     |       Y        |
-|   Note    |             |           |                              |                   |                |
+| Perintah  | Penjelasan  |  Contoh   |          Keterangan          | Default Firmware | Simpan saat mati |
+| :-------: | :---------: | :-------: | :--------------------------: | :--------------: | :--------------: |
+| $mtype:x# | Model motor | $mtype:1# | Model motor adalah motor 520 |    Motor 520     |        Y         |
+|  Catatan  |             |           |                              |                  |                  |
 
-1. Motor type selection. If the motor encoder A is connected to the A port of the board, then B is connected to B. You need to select the 310 motor model. Otherwise, you need to select the 520 motor or TT motor.
-2. The command can be sent in all uppercase or lowercase letters.
-3. If the above command is successful, it will return the message **command+OK**. If no message is returned, check the serial port connection.
-4. x: is the type of motor. The motor types represented by different values are as follows: 1: 520 motor 2: 310 motor 3: TT motor (with encoder) 4: TT motor (without encoder)
+1. Pemilihan tipe motor. Jika encoder motor A terhubung ke port A board, maka B terhubung ke B. Anda perlu memilih model motor 310. Jika tidak, Anda perlu memilih motor 520 atau motor TT.
+2. Perintah dapat dikirim dalam huruf besar atau kecil semua.
+3. Jika perintah di atas berhasil, akan mengembalikan pesan **perintah+OK**. Jika tidak ada pesan yang dikembalikan, periksa koneksi port serial.
+4. x: adalah tipe motor. Tipe motor yang diwakili oleh nilai yang berbeda adalah sebagai berikut: 1: motor 520 2: motor 310 3: motor TT (dengan encoder) 4: motor TT (tanpa encoder)
 
-Note: If you are using a motor without an encoder, you can select type 4, that is, the command is: $mtype:4# If you are using a motor with an encoder, you can select one of 1, 2, and 3.
+Catatan: Jika Anda menggunakan motor tanpa encoder, Anda dapat memilih tipe 4, yaitu perintahnya adalah: $mtype:4# Jika Anda menggunakan motor dengan encoder, Anda dapat memilih salah satu dari 1, 2, dan 3.
 
-### 2.Configuring motor deadband
+### 2.Konfigurasi Deadband Motor
 
-|     Command     |               Explanation               |     Example     |                            Remark                            | Firmware Defaults | Power off save |
-| :-------------: | :-------------------------------------: | :-------------: | :----------------------------------------------------------: | :---------------: | :------------: |
-| $deadzone:xxxx# | Configure the motor pwm pulse dead zone | $deadzone:1650# | When controlling PWM, the dead zone value will be added by default so that the motor will not have an oscillation area. |       1600        |       Y        |
-|      Note       |                                         |                 |                                                              |                   |                |
+|    Perintah     |              Penjelasan               |     Contoh      |                          Keterangan                          | Default Firmware | Simpan saat mati |
+| :-------------: | :-----------------------------------: | :-------------: | :----------------------------------------------------------: | :--------------: | :--------------: |
+| $deadzone:xxxx# | Konfigurasi zona mati pulsa pwm motor | $deadzone:1650# | Saat mengontrol PWM, nilai zona mati akan ditambahkan secara default sehingga motor tidak akan memiliki area osilasi. |       1600       |        Y         |
+|     Catatan     |                                       |                 |                                                              |                  |                  |
 
-1. The command can be sent in all uppercase or all lowercase
-2. If the above command is successful, it will return the message of **command+OK**. If no message is returned, check the serial port connection
-3. xxxx: is the value of the dead zone, which needs to be measured. By changing this value, the minimum vibration of the motor can be eliminated
-4. The range of the dead zone value (0-3600)
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Jika perintah di atas berhasil, akan mengembalikan pesan **perintah+OK**. Jika tidak ada pesan yang dikembalikan, periksa koneksi port serial
+3. xxxx: adalah nilai zona mati, yang perlu diukur. Dengan mengubah nilai ini, getaran minimum motor dapat dihilangkan
+4. Rentang nilai zona mati (0-3600)
 
-### 3.Configuring motor phase lines
+### 3.Konfigurasi Garis Fase Motor
 
-|  Command   |           Explanation           |  Example   |                          Remark                           | Firmware Defaults | Power off save |
-| :--------: | :-----------------------------: | :--------: | :-------------------------------------------------------: | :---------------: | :------------: |
-| $mline:xx# | Configure the motor phase lines | $mline:13# | Configure the phase of the motor Hall encoder to 13 lines |        11         |       Y        |
-|    Note    |                                 |            |                                                           |                   |                |
+|  Perintah  |          Penjelasan          |   Contoh   |                      Keterangan                      | Default Firmware | Simpan saat mati |
+| :--------: | :--------------------------: | :--------: | :--------------------------------------------------: | :--------------: | :--------------: |
+| $mline:xx# | Konfigurasi garis fase motor | $mline:13# | Konfigurasi fase encoder Hall motor menjadi 13 garis |        11        |        Y         |
+|  Catatan   |                              |            |                                                      |                  |                  |
 
-1. The command can be sent in all uppercase or all lowercase
-2. The above command will return **command+OK** information if it is successful. If no information is returned, check the serial port connection
-3. xx: This is the phase of the Hall encoder for one turn. This value needs to be obtained by checking the merchant's motor parameter table
-4. For motors with encoders: This value plays a **main role** in controlling speed. This value needs to be correct
-5. Motors without encoders: This value configuration can be ignored
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Perintah di atas akan mengembalikan informasi **perintah+OK** jika berhasil. Jika tidak ada informasi yang dikembalikan, periksa koneksi port serial
+3. xx: Ini adalah fase encoder Hall untuk satu putaran. Nilai ini perlu diperoleh dengan memeriksa tabel parameter motor dari pedagang
+4. Untuk motor dengan encoder: Nilai ini memainkan **peran utama** dalam mengontrol kecepatan. Nilai ini harus benar
+5. Motor tanpa encoder: Konfigurasi nilai ini dapat diabaikan
 
-### 4.Configure motor reduction ratio
+### 4.Konfigurasi Rasio Reduksi Motor
 
-|   Command   |             Explanation             |   Example   |                  Remark                   | Firmware Defaults | Power off save |
-| :---------: | :---------------------------------: | :---------: | :---------------------------------------: | :---------------: | :------------: |
-| $mphase:xx# | Configure the motor reduction ratio | $mphase:40# | Configure the motor reduction ratio to 40 |        30         |       Y        |
-|  **Note**   |                                     |             |                                           |                   |                |
+|  Perintah   |           Penjelasan            |   Contoh    |                 Keterangan                 | Default Firmware | Simpan saat mati |
+| :---------: | :-----------------------------: | :---------: | :----------------------------------------: | :--------------: | :--------------: |
+| $mphase:xx# | Konfigurasi rasio reduksi motor | $mphase:40# | Konfigurasi rasio reduksi motor menjadi 40 |        30        |        Y         |
+| **Catatan** |                                 |             |                                            |                  |                  |
 
-1. The command can be sent in all uppercase or all lowercase
-2. The above command will return **command+OK** information if it is successful. If no information is returned, check the serial port connection
-3. xx: This is the motor reduction ratio parameter. This value needs to be obtained by checking the merchant's motor parameter table
-4. For motors with encoders: This value plays a **main role** in controlling speed. This value needs to be correct
-5. Motors without encoders: This value configuration can be ignored
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Perintah di atas akan mengembalikan informasi **perintah+OK** jika berhasil. Jika tidak ada informasi yang dikembalikan, periksa koneksi port serial
+3. xx: Ini adalah parameter rasio reduksi motor. Nilai ini perlu diperoleh dengan memeriksa tabel parameter motor dari pedagang
+4. Untuk motor dengan encoder: Nilai ini memainkan **peran utama** dalam mengontrol kecepatan. Nilai ini harus benar
+5. Motor tanpa encoder: Konfigurasi nilai ini dapat diabaikan
 
-### 5.Configure the wheel diameter (Optional)
+### 5.Konfigurasi Diameter Roda (Opsional)
 
-|    Command     |         Explanation          |    Example     |              Remark               | Firmware Defaults | Power off save |
-| :------------: | :--------------------------: | :------------: | :-------------------------------: | :---------------: | :------------: |
-| $wdiameter:xx# | Configure the wheel diameter | $wdiameter:50# | The diameter of the wheel is 50mm |       67 mm       |       Y        |
-|    **Note**    |                              |                |                                   |                   |                |
+|    Perintah    |        Penjelasan         |     Contoh     |        Keterangan         | Default Firmware | Simpan saat mati |
+| :------------: | :-----------------------: | :------------: | :-----------------------: | :--------------: | :--------------: |
+| $wdiameter:xx# | Konfigurasi diameter roda | $wdiameter:50# | Diameter roda adalah 50mm |      67 mm       |        Y         |
+|  **Catatan**   |                           |                |                           |                  |                  |
 
-1. The command can be sent in all uppercase or all lowercase
-2. The above command will return **command+OK** information if it is successful. If no information is returned, check the serial port connection
-3. xx: This is the diameter of the wheel. This value can be measured or obtained using the merchant's information
-4. For motors with encoders: This value plays a **main role** in controlling speed. This value needs to be correct in millimeters (mm); if this value is incorrect, it will only affect the speed data inaccurately, and will not affect the encoder data
-5. Motors without encoders: This value configuration can be ignored
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Perintah di atas akan mengembalikan informasi **perintah+OK** jika berhasil. Jika tidak ada informasi yang dikembalikan, periksa koneksi port serial
+3. xx: Ini adalah diameter roda. Nilai ini dapat diukur atau diperoleh menggunakan informasi pedagang
+4. Untuk motor dengan encoder: Nilai ini memainkan **peran utama** dalam mengontrol kecepatan. Nilai ini harus benar dalam milimeter (mm); jika nilai ini salah, hanya akan mempengaruhi data kecepatan yang tidak akurat, dan tidak akan mempengaruhi data encoder
+5. Motor tanpa encoder: Konfigurasi nilai ini dapat diabaikan
 
-### 6.Configure PID parameters for motor control
+### 6.Konfigurasi Parameter PID untuk Kontrol Motor
 
-|        Command        |       Explanation        |       Example       |                           Remark                           | Firmware Defaults  | Power off save |
-| :-------------------: | :----------------------: | :-----------------: | :--------------------------------------------------------: | :----------------: | :------------: |
-| $MPID:x.xx,x.xx,x.xx# | Configure PID parameters | $MPID:1.5,0.03,0.1# | The configuration control speed is P: 1.5, I: 0.03, D: 0.1 | P:0.8 I:0.06 D:0.5 |       Y        |
-|       **Note**        |                          |                     |                                                            |                    |                |
+|       Perintah        |        Penjelasan         |       Contoh        |                          Keterangan                          |  Default Firmware  | Simpan saat mati |
+| :-------------------: | :-----------------------: | :-----------------: | :----------------------------------------------------------: | :----------------: | :--------------: |
+| $MPID:x.xx,x.xx,x.xx# | Konfigurasi parameter PID | $MPID:1.5,0.03,0.1# | Konfigurasi kontrol kecepatan adalah P: 1.5, I: 0.03, D: 0.1 | P:0.8 I:0.06 D:0.5 |        Y         |
+|      **Catatan**      |                           |                     |                                                              |                    |                  |
 
-1. The command can be sent in all uppercase or all lowercase
-2. The above command will return **command+OK** if it is successful. If no information is returned, check the serial port connection
-3. x.xx, x.xx, x.xx: These are the parameters for controlling motor p, i, d respectively. **Every time the value is changed, the chip will restart and stop the moving motor. This is a normal situation**
-4. For motors with encoders: the pid parameter is valid, and this value needs to be correct. **Generally, there is no need to modify the pid, and the default value can be used**
-5. Motors without encoders: the pid parameter is invalid, and this value configuration can be ignored
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Perintah di atas akan mengembalikan **perintah+OK** jika berhasil. Jika tidak ada informasi yang dikembalikan, periksa koneksi port serial
+3. x.xx, x.xx, x.xx: Ini adalah parameter untuk mengontrol motor p, i, d masing-masing. **Setiap kali nilai diubah, chip akan restart dan menghentikan motor yang bergerak. Ini adalah situasi normal**
+4. Untuk motor dengan encoder: parameter pid valid, dan nilai ini harus benar. **Umumnya, tidak perlu memodifikasi pid, dan nilai default dapat digunakan**
+5. Motor tanpa encoder: parameter pid tidak valid, dan konfigurasi nilai ini dapat diabaikan
 
-### 7.Reset all variables to defaults value
+### 7.Reset Semua Variabel ke Nilai Default
 
-|    Command    |          Explanation           | Example | Remark | Firmware Defaults | Power off save |
-| :-----------: | :----------------------------: | :-----: | :----: | :---------------: | :------------: |
-| $flash_reset# | Restore factory defaults value |    -    |   -    |         -         |       -        |
-|   **Note**    |                                |         |        |                   |                |
+|   Perintah    |           Penjelasan            | Contoh | Keterangan | Default Firmware | Simpan saat mati |
+| :-----------: | :-----------------------------: | :----: | :--------: | :--------------: | :--------------: |
+| $flash_reset# | Kembalikan nilai default pabrik |   -    |     -      |        -         |        -         |
+|  **Catatan**  |                                 |        |            |                  |                  |
 
-1. The command can be sent in all uppercase or all lowercase
-2. If the above command is successful, it will return the message **command+OK**. If no message is returned, check the serial port connection
-3. Execute this command and the module will restart once
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Jika perintah di atas berhasil, akan mengembalikan pesan **perintah+OK**. Jika tidak ada pesan yang dikembalikan, periksa koneksi port serial
+3. Eksekusi perintah ini dan modul akan restart sekali
 
-### 8.Control speed command
+### 8.Perintah Kontrol Kecepatan
 
-|    Command    |          Explanation          |       Example       |                         Remark                          | Firmware Defaults | Power off save |
-| :-----------: | :---------------------------: | :-----------------: | :-----------------------------------------------------: | :---------------: | :------------: |
-| $spd:0,0,0,0# | Control the speed of 4 motors | $spd:100,-100,0,50# | Control the speed of 4 motors M1:100 M2:-100 M3:0 M4:50 |         -         |       N        |
-|   **Note**    |                               |                     |                                                         |                   |                |
+|   Perintah    |        Penjelasan         |       Contoh        |                     Keterangan                      | Default Firmware | Simpan saat mati |
+| :-----------: | :-----------------------: | :-----------------: | :-------------------------------------------------: | :--------------: | :--------------: |
+| $spd:0,0,0,0# | Kontrol kecepatan 4 motor | $spd:100,-100,0,50# | Kontrol kecepatan 4 motor M1:100 M2:-100 M3:0 M4:50 |        -         |        N         |
+|  **Catatan**  |                           |                     |                                                     |                  |                  |
 
-1. The command can be sent in all uppercase or all lowercase letters
-2. If the above command is successful, the motor will move, and the serial port will not return anything
-3. This command is only valid for encoder type motors.
-4. The speed range is (-1000~1000) and it is invalid if it exceeds the range
-5. 0,0,0,0: represents M1, M2, M3, M4 on the board screen
-6. When the spd command parameter is 0, PID still works. At this time, the hand cannot turn the wheel. To turn the wheel, use the pwm command to set it to 0.
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Jika perintah di atas berhasil, akan mengembalikan pesan **perintah+OK**. Jika tidak ada pesan yang dikembalikan, periksa koneksi port serial
+3. Untuk motor dengan encoder: perintah ini berfungsi untuk mengontrol kecepatan motor
+4. Motor tanpa encoder: perintah ini tidak valid
+5. Perintah kontrol motor tidak perlu dikirim berulang kali; cukup kirim sekali, dan modul akan mengontrol motor menurut kecepatan yang ditetapkan, hingga perintah kontrol kecepatan baru diterima atau perintah berhenti dikirim.
 
-### 9.Direct control PWM instruction
+Catatan: Setelah perintah ini dikirim, encoder atau data kecepatan akan secara otomatis dikirim balik menurut perintah yang telah dikonfigurasi sebelumnya.
 
-|    Command    |           Explanation            |       Example        |                            Remark                            | Firmware Defaults | Power off save |
-| :-----------: | :------------------------------: | :------------------: | :----------------------------------------------------------: | :---------------: | :------------: |
-| $pwm:0,0,0,0# | Control 4 motors with PWM output | $spd:0,-520,300,800# | Control the PWM output of 4 motors M1:0 M2:-520 M3:300 M4:800 |         -         |       N        |
-|   **Note**    |                                  |                      |                                                              |                   |                |
+### 9.Instruksi Kontrol PWM Langsung
 
-1. The command can be sent in all uppercase or all lowercase
-2. If the above command is successful, the motor will move, and nothing will be returned from the serial port
-3. The speed range is (-3600~3600) and it is invalid if it exceeds the range
-4. For motor control without encoder, **you can control it through this command**
-5. 0,0,0,0: represents M1,M2,M3,M4 on the board screen
+|   Perintah    |            Penjelasan             |        Contoh        |                         Keterangan                         | Default Firmware | Simpan saat mati |
+| :-----------: | :-------------------------------: | :------------------: | :--------------------------------------------------------: | :--------------: | :--------------: |
+| $pwm:0,0,0,0# | Kontrol 4 motor dengan output PWM | $spd:0,-520,300,800# | Kontrol output PWM dari 4 motor M1:0 M2:-520 M3:300 M4:800 |        -         |        N         |
+|  **Catatan**  |                                   |                      |                                                            |                  |                  |
 
-### 10.Report encoder data (This command is only valid for motors with encoder)
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Jika perintah di atas berhasil, motor akan bergerak, dan tidak ada yang akan dikembalikan dari port serial
+3. Rentang kecepatan adalah (-3600~3600) dan tidak valid jika melebihi rentang
+4. Untuk kontrol motor tanpa encoder, **Anda dapat mengontrolnya melalui perintah ini**
+5. 0,0,0,0: mewakili M1,M2,M3,M4 pada layar board
 
-|    Command     |     Explanation      |    Example     |                            Remark                            | Firmware Defaults | Power off save |
-| :------------: | :------------------: | :------------: | :----------------------------------------------------------: | :---------------: | :------------: |
-| $upload:0,0,0# | Receive encoder data | $upload:1,0,0# | Receive the total encoder data of wheel rotation 1: open, 0: do not receive |         -         |       N        |
-|    **Note**    |                      |                |                                                              |                   |                |
+### 10.Laporan Data Encoder (Perintah ini hanya valid untuk motor dengan encoder)
 
-1. The command can be sent in all uppercase or all lowercase
-2. $upload:0,0,0#: The first 0 represents: the total encoder data of the wheel rotation The second 0 represents: the real-time encoder data of the wheel rotation (10ms) The third 0 represents: the speed of the wheel
-3. The corresponding information can be received at the same time
+|    Perintah    |     Penjelasan      |     Contoh     |                          Keterangan                          | Default Firmware | Simpan saat mati |
+| :------------: | :-----------------: | :------------: | :----------------------------------------------------------: | :--------------: | :--------------: |
+| $upload:0,0,0# | Terima data encoder | $upload:1,0,0# | Terima data encoder total dari putaran roda 1: buka, 0: tidak menerima |        -         |        N         |
+|  **Catatan**   |                     |                |                                                              |                  |                  |
 
-- The total encoder data of the wheel rotation returns the information: "$MAll:M1,M2,M3,M4#"
-- The real-time encoder data of the wheel rotation returns the information: "$MTEP:M1,M2,M3,M4#"
-- The speed of the wheel returns the information: "$MSPD:M1,M2,M3,M4#"
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. $upload:0,0,0#: 0 pertama mewakili: data encoder total dari putaran roda. 0 kedua mewakili: data encoder real-time dari putaran roda (10ms). 0 ketiga mewakili: kecepatan roda
+3. Informasi yang sesuai dapat diterima pada saat yang sama
 
-### 11.Query flash variables
+- Data encoder total dari putaran roda mengembalikan informasi: "$MAll:M1,M2,M3,M4#"
+- Data encoder real-time dari putaran roda mengembalikan informasi: "$MTEP:M1,M2,M3,M4#"
+- Kecepatan roda mengembalikan informasi: "$MSPD:M1,M2,M3,M4#"
 
-|   Command    |      Explanation      | Example | Remark | Firmware Defaults | Power off save |
-| :----------: | :-------------------: | :-----: | :----: | :---------------: | :------------: |
-| $read_flash# | Query flash variables |    -    |   -    |         -         |       N        |
-|     Note     |                       |         |        |                   |                |
+### 11.Query Variabel Flash
 
-1. The command can be sent in all uppercase or all lowercase
-2. If the above command is successful, it will return the message **command+OK**. If no message is returned, check the serial port connection
+|   Perintah   |      Penjelasan      | Contoh | Keterangan | Default Firmware | Simpan saat mati |
+| :----------: | :------------------: | :----: | :--------: | :--------------: | :--------------: |
+| $read_flash# | Query variabel flash |   -    |     -      |        -         |        N         |
+|   Catatan    |                      |        |            |                  |                  |
 
-### 12.Check battery level
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Jika perintah di atas berhasil, akan mengembalikan pesan **perintah+OK**. Jika tidak ada pesan yang dikembalikan, periksa koneksi port serial
 
-|  Command   |     Explanation     | Example | Remark | Firmware Defaults | Power off save |
-| :--------: | :-----------------: | :-----: | :----: | :---------------: | :------------: |
-| $read_vol# | Check battery level |    -    |   -    |         -         |       N        |
-|    Note    |                     |         |        |                   |                |
+### 12.Cek Level Baterai
 
-1. The command can be sent in all uppercase or all lowercase
-2. If the above command is successful, it will return the information of **battery power ($Battery:7.40V#)**. If no information is returned, please check the serial port connection
+|  Perintah  |    Penjelasan     | Contoh | Keterangan | Default Firmware | Simpan saat mati |
+| :--------: | :---------------: | :----: | :--------: | :--------------: | :--------------: |
+| $read_vol# | Cek level baterai |   -    |     -      |        -         |        N         |
+|  Catatan   |                   |        |            |                  |                  |
 
-## IIC protocol control
+1. Perintah dapat dikirim dalam huruf besar atau kecil semua
+2. Jika perintah di atas berhasil, akan mengembalikan informasi **daya baterai ($Battery:7.40V#)**. Jika tidak ada informasi yang dikembalikan, silakan periksa koneksi port serial
 
-**4-channel motor driver board IIC device address:** 0x26
+## Kontrol Protokol IIC
 
-| Register address | R/W  |   Type   |                            Range                             |                         Explanation                          | Example                                                      |
-| :--------------: | :--: | :------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------- |
-|       0x01       |  w   | uint8_t  | 1: 520 motor 2: 310 motor 3: TT motor (with encoder) 4: TT motor (without encoder) |                       Write motor type                       | Device address + register address + motor type               |
-|       0x02       |  w   | uint16_t |                            0-3600                            |                  Configuring motor deadband                  | Device address + register address + motor dead zone value    |
-|       0x03       |  w   | uint16_t |                           0-65535                            |      Configure the number of motor magnetic ring lines       | Device address + register address + number of motor magnetic ring lines |
-|       0x04       |  w   | uint16_t |                           0-65535                            |               Configure motor reduction ratio                | Device address + register address + motor reduction ratio    |
-|       0x05       |  w   |  float   |                              -                               |              Enter the wheel diameter, unit: mm              | Device address + register address + wheel diameter (need to convert float to bytes - little endian first) |
-|       0x06       |  w   | int16_t  |                          -1000~1000                          | Speed control, this register is only effective for motors with encoders, unit: mm | Device address + register address + speed (transmitting data of 4 motors each time) **Big-endian mode**Each speed occupies 2 bits For uint8_t eg: m1 motor speed 200, m2 motor speed -200, m3 motor speed 0, m4 motor speed 500 That is: [0x00 0xC8 0xFF 0x38 0x00 0x00 0x01 0xf4] |
-|       0x07       |  w   | int16_t  |                          -3600~3600                          | PWM control, this control does not require encoder data and can directly control the motor rotation | Device address + register address + speed (transmitting data of 4 motors each time) **Big-endian mode**Each speed occupies 2 bits For uint8_t eg: m1 motor pwm200, m2 motor pwm is -200, m3 motor pwm is 0, m4 motor pwm is 500 That is: [0x00 0xC8 0xFF 0x38 0x00 0x00 0x01 0xf4] |
-|       0x08       |  R   | uint16_t |                              -                               |                    Reading battery level                     | A correct data: data = (buf[0]<<8\|buf[1])/10.0              |
-|       0x10       |  R   | int16_t  |                              -                               |         Read M1 encoder real-time pulse data - 10ms          | A correct data: data = buf[0]<<8\|buf[1]                     |
-|       0x11       |  R   | int16_t  |                              -                               |         Read M2 encoder real-time pulse data - 10ms          | A correct data: data = buf[0]<<8\|buf[1]                     |
-|       0x12       |  R   | int16_t  |                              -                               |         Read M3 encoder real-time pulse data - 10ms          | A correct data: data = buf[0]<<8\|buf[1]                     |
-|       0x13       |  R   | int16_t  |                              -                               |         Read M4 encoder real-time pulse data - 10ms          | A correct data: data = buf[0]<<8\|buf[1]                     |
-|       0x20       |  R   | int16_t  |                              -                               | Read the total pulse data of the M1 motor encoder (High bit) | -                                                            |
-|       0x21       |  R   | int16_t  |                              -                               | Read the total pulse data of the M1 motor encoder (Low bit)  | The acquired data needs to be shifted to get the correct data. High bit represents: buf[0] buf[1] Low bit represents: bf[0] bf[1] (data = buf[0]<<24\|buf[1]<<16\|bf[0]<<8\|bf[1]) |
-|       0x22       |  R   | int16_t  |                              -                               | Read the total pulse data of the M2 motor encoder (High bit) | -                                                            |
-|       0x23       |  R   | int16_t  |                              -                               | Read the total pulse data of the M2 motor encoder (Low bit)  | Same calculation method as M1                                |
-|       0x24       |  R   | int16_t  |                              -                               | Read the total pulse data of the M3 motor encoder (High bit) | -                                                            |
-|       0x25       |  R   | int16_t  |                              -                               | Read the total pulse data of the M3 motor encoder (Low bit)  | Same calculation method as M1                                |
-|       0x26       |  R   | int16_t  |                              -                               | Read the total pulse data of the M4 motor encoder (High bit) | -                                                            |
-|       0x27       |  R   | int16_t  |                              -                               | Read the total pulse data of the M4 motor encoder (Low bit)  | Same calculation method as M1                                |
+**Alamat perangkat IIC board driver motor 4-channel:** 0x26
 
+| Alamat Register | R/W  |   Tipe   |                           Rentang                            |                          Penjelasan                          | Contoh                                                       |
+| :-------------: | :--: | :------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------- |
+|      0x01       |  w   | uint8_t  | 1: motor 520 2: motor 310 3: motor TT (dengan encoder) 4: motor TT (tanpa encoder) |                       Tulis tipe motor                       | Alamat perangkat + alamat register + tipe motor              |
+|      0x02       |  w   | uint16_t |                            0-3600                            |                  Konfigurasi deadband motor                  | Alamat perangkat + alamat register + nilai zona mati motor   |
+|      0x03       |  w   | uint16_t |                           0-65535                            |        Konfigurasi jumlah garis cincin magnetik motor        | Alamat perangkat + alamat register + jumlah garis cincin magnetik motor |
+|      0x04       |  w   | uint16_t |                           0-65535                            |               Konfigurasi rasio reduksi motor                | Alamat perangkat + alamat register + rasio reduksi motor     |
+|      0x05       |  w   |  float   |                              -                               |              Masukkan diameter roda, satuan: mm              | Alamat perangkat + alamat register + diameter roda (perlu mengkonversi float ke bytes - little endian terlebih dahulu) |
+|      0x06       |  w   | int16_t  |                          -1000~1000                          | Kontrol kecepatan, register ini hanya efektif untuk motor dengan encoder, satuan: mm | Alamat perangkat + alamat register + kecepatan (mentransmisikan data 4 motor setiap kali) **Mode big-endian** Setiap kecepatan menempati 2 bit Untuk uint8_t misalnya: kecepatan motor m1 200, kecepatan motor m2 -200, kecepatan motor m3 0, kecepatan motor m4 500 Yaitu: [0x00 0xC8 0xFF 0x38 0x00 0x00 0x01 0xf4] |
+|      0x07       |  w   | int16_t  |                          -3600~3600                          | Kontrol PWM, kontrol ini tidak memerlukan data encoder dan dapat langsung mengontrol rotasi motor | Alamat perangkat + alamat register + kecepatan (mentransmisikan data 4 motor setiap kali) **Mode big-endian** Setiap kecepatan menempati 2 bit Untuk uint8_t misalnya: pwm motor m1 200, pwm motor m2 adalah -200, pwm motor m3 adalah 0, pwm motor m4 adalah 500 Yaitu: [0x00 0xC8 0xFF 0x38 0x00 0x00 0x01 0xf4] |
+|      0x08       |  R   | uint16_t |                              -                               |                    Membaca level baterai                     | Data yang benar: data = (buf[0]<<8\|buf[1])/10.0             |
+|      0x10       |  R   | int16_t  |                              -                               |      Baca data pulsa real-time encoder motor M1 - 10ms       | Data yang benar: data = buf[0]<<8\|buf[1]                    |
+|      0x11       |  R   | int16_t  |                              -                               |      Baca data pulsa real-time encoder motor M2 - 10ms       | Data yang benar: data = buf[0]<<8\|buf[1]                    |
+|      0x12       |  R   | int16_t  |                              -                               |      Baca data pulsa real-time encoder motor M3 - 10ms       | Data yang benar: data = buf[0]<<8\|buf[1]                    |
+|      0x13       |  R   | int16_t  |                              -                               |      Baca data pulsa real-time encoder motor M4 - 10ms       | Data yang benar: data = buf[0]<<8\|buf[1]                    |
+|      0x20       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M1 (Bit tinggi)      | -                                                            |
+|      0x21       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M1 (Bit rendah)      | Data yang diperoleh perlu digeser untuk mendapatkan data yang benar. Bit tinggi mewakili: buf[0] buf[1] Bit rendah mewakili: bf[0] bf[1] (data = buf[0]<<24\|buf[1]<<16\|bf[0]<<8\|bf[1]) |
+|      0x22       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M2 (Bit tinggi)      | -                                                            |
+|      0x23       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M2 (Bit rendah)      | Metode perhitungan sama dengan M1                            |
+|      0x24       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M3 (Bit tinggi)      | -                                                            |
+|      0x25       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M3 (Bit rendah)      | Metode perhitungan sama dengan M1                            |
+|      0x26       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M4 (Bit tinggi)      | -                                                            |
+|      0x27       |  R   | int16_t  |                              -                               |     Baca data pulsa total encoder motor M4 (Bit rendah)      | Metode perhitungan sama dengan M1                            |
 
+# Cara Memperbarui Firmware
 
-# How to Update the Firmware
-
-Open the burning software FlyMcu provided in the attachment, connect the typec port of the four-way motor driver board to the computer, and then click the Enumport in the software. And select the serial port used by your driver board.
+Buka software pembakaran FlyMcu yang disediakan dalam lampiran, hubungkan port typec dari board driver motor empat jalur ke komputer, kemudian klik Enumport di software tersebut. Dan pilih port serial yang digunakan oleh board driver Anda.
 
 ![image-20250611160834336](./assets/image-20250611160834336.png)
 
-In the program file, select the downloaded firmware file, and then pay attention that the other settings in the red box should be the same as those in the picture.
+Pada file program, pilih file firmware yang telah diunduh, kemudian perhatikan bahwa pengaturan lain dalam kotak merah harus sama dengan yang ada di gambar.
 
 ![image-20250611160857277](./assets/image-20250611160857277.png)
 
-Finally, just click Start Programming. No other operations are required and the firmware will start burning. The following figure shows the information displayed after the burning is successful:
+Terakhir, cukup klik Start Programming. Tidak diperlukan operasi lain dan firmware akan mulai dibakar. Gambar berikut menunjukkan informasi yang ditampilkan setelah pembakaran berhasil:
 
 ![image-20250611160924015](./assets/image-20250611160924015.png)
 
-Finally, unplug and plug the type-c cable again to restart the driver board. If the red light is always on and the green light flashes twice every 3 seconds, then the burning is successful.
+Terakhir, cabut dan colokkan kabel type-c lagi untuk me-restart board driver. Jika lampu merah selalu menyala dan lampu hijau berkedip dua kali setiap 3 detik, maka pembakaran berhasil.
 
- 
+# Pengenalan dan Penggunaan Motor
 
-# Motor introduction and usage
+**Kursus ini digunakan untuk menjelaskan parameter motor, tegangan supply yang direkomendasikan, dan metode perkabelan yang direkomendasikan untuk menghubungkan motor ke board driver motor 4-channel.** 
 
-**This course is used to explain the parameters of the motor, the recommended supply voltage, and the recommended wiring method for connecting the motor to the 4-channel motor driver board.** 
+## 1. Motor 520
 
-[Motor introduction and usage](https://www.yahboom.net/public/upload/upload-html/1740571311/0. Motor introduction and usage.html#motor-introduction-and-usage)[1. 520 motor](https://www.yahboom.net/public/upload/upload-html/1740571311/0. Motor introduction and usage.html#1-520-motor)[2. 310 motor](https://www.yahboom.net/public/upload/upload-html/1740571311/0. Motor introduction and usage.html#2-310-motor)[3. DC TT Motor](https://www.yahboom.net/public/upload/upload-html/1740571311/0. Motor introduction and usage.html#3-dc-tt-motor)[4. TT motor with encoder speed measurement](https://www.yahboom.net/public/upload/upload-html/1740571311/0. Motor introduction and usage.html#4-tt-motor-with-encoder-speed-measurement)[5. L-type 520 motor](https://www.yahboom.net/public/upload/upload-html/1740571311/0. Motor introduction and usage.html#5-l-type-520-motor)
-
-## 1. 520 motor
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/1.png)
+![img](./assets/1.png)
 
 |         Parameter         |                         MD520Z19_12V                         |                         MD520Z30_12V                         |                         MD520Z56_12V                         |
 | :-----------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|       Rated voltage       |                             12V                              |                             12V                              |                             12V                              |
-|        Motor type         |                    Permanent magnet brush                    |                    Permanent magnet brush                    |                    Permanent magnet brush                    |
-|       Output shaft        |             6mm diameter D-type eccentric shaft              |             6mm diameter D-type eccentric shaft              |             6mm diameter D-type eccentric shaft              |
-|       Stall torque        |                           3.1kg·cm                           |                           4.8kg·cm                           |                           8.3kg·cm                           |
-|       Rated torque        |                           2.2kg·cm                           |                           3.3kg·cm                           |                           6.5kg·cm                           |
-| Speed before deceleration |                           11000rpm                           |                           11000rpm                           |                           12000rpm                           |
-| Speed after deceleration  |                          550±10rpm                           |                          333±10rpm                           |                          205±10rpm                           |
-|        Rated power        |                             ≤4W                              |                             ≤4W                              |                             ≤4W                              |
-|       Stall current       |                              3A                              |                              3A                              |                              4A                              |
-|       Rated current       |                             0.3A                             |                             0.3A                             |                             0.3A                             |
-| Gear set reduction ratio  |                             1:19                             |                             1:30                             |                             1:56                             |
-|       Encoder type        |              AB phase incremental Hall encoder               |              AB phase incremental Hall encoder               |              AB phase incremental Hall encoder               |
-|  Encoder supply voltage   |                            3.3-5V                            |                            3.3-5V                            |                            3.3-5V                            |
-|   Magnetic loop number    |                           11 line                            |                           11 line                            |                           11 line                            |
-|      Interface type       |                          PH2.0 6Pin                          |                          PH2.0 6Pin                          |                          PH2.0 6Pin                          |
-|         Function          | With built-in pull-up shaping, the MCU can directly read the signal pulse | With built-in pull-up shaping, the MCU can directly read the signal pulse | With built-in pull-up shaping, the MCU can directly read the signal pulse |
-|    Single motor weight    |                           150g±1g                            |                           150g±1g                            |                           150g±1g                            |
+|      Tegangan rated       |                             12V                              |                             12V                              |                             12V                              |
+|        Tipe motor         |                    Sikat magnet permanen                     |                    Sikat magnet permanen                     |                    Sikat magnet permanen                     |
+|       Poros output        |             Poros eksentrik tipe-D diameter 6mm              |             Poros eksentrik tipe-D diameter 6mm              |             Poros eksentrik tipe-D diameter 6mm              |
+|        Torsi stall        |                           3.1kg·cm                           |                           4.8kg·cm                           |                           8.3kg·cm                           |
+|        Torsi rated        |                           2.2kg·cm                           |                           3.3kg·cm                           |                           6.5kg·cm                           |
+| Kecepatan sebelum reduksi |                           11000rpm                           |                           11000rpm                           |                           12000rpm                           |
+| Kecepatan setelah reduksi |                          550±10rpm                           |                          333±10rpm                           |                          205±10rpm                           |
+|        Daya rated         |                             ≤4W                              |                             ≤4W                              |                             ≤4W                              |
+|        Arus stall         |                              3A                              |                              3A                              |                              4A                              |
+|        Arus rated         |                             0.3A                             |                             0.3A                             |                             0.3A                             |
+|  Rasio reduksi gear set   |                             1:19                             |                             1:30                             |                             1:56                             |
+|       Tipe encoder        |               Encoder Hall incremental fase AB               |               Encoder Hall incremental fase AB               |               Encoder Hall incremental fase AB               |
+|  Tegangan supply encoder  |                            3.3-5V                            |                            3.3-5V                            |                            3.3-5V                            |
+|   Jumlah loop magnetik    |                           11 garis                           |                           11 garis                           |                           11 garis                           |
+|      Tipe interface       |                          PH2.0 6Pin                          |                          PH2.0 6Pin                          |                          PH2.0 6Pin                          |
+|          Fungsi           | Dengan pembentukan pull-up built-in, MCU dapat langsung membaca pulsa sinyal | Dengan pembentukan pull-up built-in, MCU dapat langsung membaca pulsa sinyal | Dengan pembentukan pull-up built-in, MCU dapat langsung membaca pulsa sinyal |
+|    Berat motor tunggal    |                           150g±1g                            |                           150g±1g                            |                           150g±1g                            |
 
-Recommended power supply: **12V**.
+Catu daya yang direkomendasikan: **12V**.
 
-There are three types of 520 motors, and their rated voltage is **12V**. When we drive the 520 motor, we can connect a voltage between 11 and 16V, and it is recommended to use a 12V voltage supply**.
+Ada tiga jenis motor 520, dan tegangan rated mereka adalah **12V**. Ketika kita menggerakkan motor 520, kita dapat menghubungkan tegangan antara 11 dan 16V, dan disarankan untuk menggunakan supply tegangan 12V**.
 
-If you want to distinguish the model of the 520 motor you bought, you can directly look at the label printed on the 520 motor. There is a text printed on it called RPM, and the number in front of RPM corresponds to the **speed after deceleration** number in the parameter table.
+Jika Anda ingin membedakan model motor 520 yang Anda beli, Anda dapat langsung melihat label yang tercetak pada motor 520. Ada teks yang tercetak di atasnya bernama RPM, dan angka di depan RPM sesuai dengan angka **kecepatan setelah reduksi** dalam tabel parameter.
 
-For example, the label of the 520 motor in my hand says 333RPM, so you should pay attention to the parameters in the **MD520Z30_12V** column. In particular, the two parameters of **reduction ratio and number of magnetic ring lines** may be modified when using a 4-channel motor driver board.
+Misalnya, label motor 520 di tangan saya mengatakan 333RPM, jadi Anda harus memperhatikan parameter dalam kolom **MD520Z30_12V**. Khususnya, dua parameter **rasio reduksi dan jumlah garis cincin magnetik** mungkin perlu dimodifikasi saat menggunakan board driver motor 4-channel.
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/2.png)
+![img](./assets/2.png)
 
-Recommended wiring:
+Perkabelan yang direkomendasikan:
 
-The 520 motor you purchased will come with two types of cables. Here we recommend that you choose the black PH2.0-6PIN double-ended cable, one end connected to the motor, and the other end directly connected to the PH2.0-6PIN encoder motor interface on the four-way motor driver board. We can find that the A on the motor corresponds to the B phase of the four-way motor driver board.
+Motor 520 yang Anda beli akan dilengkapi dengan dua jenis kabel. Di sini kami merekomendasikan agar Anda memilih kabel double-ended PH2.0-6PIN hitam, satu ujung terhubung ke motor, dan ujung lainnya langsung terhubung ke interface motor encoder PH2.0-6PIN pada board driver motor empat jalur. Kita dapat menemukan bahwa A pada motor sesuai dengan fase B dari board driver motor empat jalur.
 
-So when configuring the motor type on the four-way motor driver board, you should choose `$mtype:1#`, the model of the 520 motor.
+Jadi saat mengkonfigurasi tipe motor pada board driver motor empat jalur, Anda harus memilih `$mtype:1#`, model motor 520.
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/3.png)![img](https://www.yahboom.net/public/upload/upload-html/1740571311/4.png)
+![img](./assets/3.png)![img](https://www.yahboom.net/public/upload/upload-html/1740571311/4.png)
 
-520 motor wiring instructions:
+Instruksi perkabelan motor 520:
 
-If you use PH2.0-6PIN to Dupont line connection, you can connect according to the picture below. With this connection, the motor phase A will be connected to the four-way motor driver board phase A, and phase B will be connected to phase B.
+Jika Anda menggunakan koneksi PH2.0-6PIN ke kabel Dupont, Anda dapat menghubungkan sesuai dengan gambar di bawah ini. Dengan koneksi ini, fase A motor akan terhubung ke fase A board driver motor empat jalur, dan fase B akan terhubung ke fase B.
 
-However, when configuring the motor type, you should select `$mtype:2#`, the model of the 310 motor.
-
- 
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/5.png)
+Namun, saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:2#`, model motor 310.
 
  
 
-## 2. 310 motor
+![img](./assets/5.png)
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/6.png)
+ 
+
+## 2. Motor 310
+
+![img](./assets/6.png)
 
 ​	
 
-| Parameter                 | Value/description                                            |
+| Parameter                 | Nilai/deskripsi                                              |
 | ------------------------- | ------------------------------------------------------------ |
-| Motor name                | MD310Z20_7.4V                                                |
-| Stall current             | ≤1.4A                                                        |
-| Motor rated voltage       | 7.4V                                                         |
-| Rated current             | ≤0.65A                                                       |
-| Motor type                | Permanent magnet brush                                       |
-| Gear set reduction ratio  | 1:20                                                         |
-| Output shaft              | 3mm diameter D-type eccentric shaft                          |
-| Encoder type              | AB phase incremental Hall encoder                            |
-| Stall torque              | ≥1.0kg·cm                                                    |
-| Encoder supply voltage    | 3.3-5V                                                       |
-| Rated torque              | 0.4kg·cm                                                     |
-| Magnetic loop number      | 13 line                                                      |
-| Speed before deceleration | 9000rpm                                                      |
-| Interface type            | PH2.0 6Pin                                                   |
-| Functions                 | With built-in pull-up shaping, the MCU can directly read the signal pulse |
-| Speed after deceleration  | 450±10rpm                                                    |
-| Rated power               | 4.8W                                                         |
-| Single motor weight       | 70g                                                          |
+| Nama motor                | MD310Z20_7.4V                                                |
+| Arus stall                | ≤1.4A                                                        |
+| Tegangan rated motor      | 7.4V                                                         |
+| Arus rated                | ≤0.65A                                                       |
+| Tipe motor                | Sikat magnet permanen                                        |
+| Rasio reduksi gear set    | 1:20                                                         |
+| Poros output              | Poros eksentrik tipe-D diameter 3mm                          |
+| Tipe encoder              | Encoder Hall incremental fase AB                             |
+| Torsi stall               | ≥1.0kg·cm                                                    |
+| Tegangan supply encoder   | 3.3-5V                                                       |
+| Torsi rated               | 0.4kg·cm                                                     |
+| Jumlah loop magnetik      | 13 garis                                                     |
+| Kecepatan sebelum reduksi | 9000rpm                                                      |
+| Tipe interface            | PH2.0 6Pin                                                   |
+| Fungsi                    | Dengan pembentukan pull-up built-in, MCU dapat langsung membaca pulsa sinyal |
+| Kecepatan setelah reduksi | 450±10rpm                                                    |
+| Daya rated                | 4.8W                                                         |
+| Berat motor tunggal       | 70g                                                          |
 
-Recommended power supply: **7.4V**. It can be connected to a voltage between 4.2~8.4V, **recommended to use a voltage of 7.4V**.
+Catu daya yang direkomendasikan: **7.4V**. Dapat dihubungkan ke tegangan antara 4.2~8.4V, **direkomendasikan menggunakan tegangan 7.4V**.
 
-The two parameters **reduction ratio and number of magnetic ring lines** in the main parameter table are required. These two parameters may be modified when using a four-way motor driver board.
+Dua parameter **rasio reduksi dan jumlah garis cincin magnetik** dalam tabel parameter utama diperlukan. Dua parameter ini mungkin perlu dimodifikasi saat menggunakan board driver motor empat jalur.
 
-If you buy a 310 motor alone, you will receive a PH2.0-6PIN to DuPont cable. When connecting a 4-channel driver board, connect it to its IO socket.
+Jika Anda membeli motor 310 sendiri, Anda akan menerima kabel PH2.0-6PIN ke DuPont. Saat menghubungkan board driver 4-channel, hubungkan ke soket IO-nya.
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/7.png)
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/8.png)
-
-310 motor wiring instructions:
-
-When the A phase of the 310 motor is connected to the A phase of the 4-channel motor driver board, and the B phase is connected to the B phase, then when configuring the motor type, you should select `$mtype:2#`, the model of the 310 motor.
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/9.png)
-
- 
-
-If you purchased the 310 motor in the chassis kit, it has a PH2.0-6PIN double-ended cable. You can connect the black end to the 310 motor and the white end to the PH2.0-6PIN encoder motor interface on the 4-channel motor driver board.
-
-At this time, select `$mtype:2#` to configure the motor type, which is the model of the 310 motor.
-
- 
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/10.png)
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/10.1.png)
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/10.2.png)
-
-## 3. DC TT Motor
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/11.png)
-
-| Parameter                 | Value/Description |
-| ------------------------- | ----------------- |
-| Model                     | TT gear motor     |
-| Brush material            | Carbon brush      |
-| Reduction ratio           | 1:48              |
-| Rated voltage             | 6V                |
-| Idle current              | 200MA             |
-| Stall current             | 1.5A              |
-| Torque                    | 0.8N.m            |
-| Speed before deceleration | 12000±10%rpm      |
-| Speed after deceleration  | 245±10%rpm        |
-
-Recommended power supply: **7.4V**
-
-This motor has no encoder, so you only need to modify **motor type** and **reduction ratio** in the four-way motor driver board. When configuring the motor type, select `$mtype:4#`, the TT motor model without encoder.
-
-Recommended wiring: Connect the XH2.54-2PIN interface on the TT motor directly to the XH2.54-2PIN socket on the 4-channel motor driver board.
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/12.png)
-
- 
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/13.png)
-
- 
-
- 
-
-## 4. TT motor with encoder speed measurement
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/14.png)
-
-| Parameter                          | Value/Description                                        |
-| ---------------------------------- | -------------------------------------------------------- |
-| Model                              | 13-wire metal single-axis TT motor                       |
-| Motor type                         | 130 Motor                                                |
-| Motor type/brush material          | Copper brush                                             |
-| Reduction ratio                    | 1:45                                                     |
-| Rated voltage                      | 6V                                                       |
-| No-load current                    | 0.08A                                                    |
-| Rated current                      | 0.3A                                                     |
-| Stall current                      | 1.1A                                                     |
-| Torque                             | 1.2N.m                                                   |
-| Speed before deceleration          | 16000±5%rpm                                              |
-| Speed after deceleration           | 355±5%rpm                                                |
-| Encoder type                       | Hall AB phase encoder                                    |
-| Encoder power supply               | 3.3-5V                                                   |
-| Encoder line number                | 13 line                                                  |
-| Maximum count per wheel revolution | 2340                                                     |
-| Features                           | With built-in pull-up shaping, the MCU can read directly |
-
-Recommended power supply: **7.4V**. It can be connected to 5~13V, **recommended to use 7.4V voltage power supply**.
-
-The two parameters **reduction ratio and encoder line number** in the main parameter table are required. These two parameters may be modified when using the 4-channel motor driver board.
-
-Recommended wiring: Use the PH2.0-6PIN to DuPont line cable and connect it to the IO socket of the 4-channel motor driver board.
-
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/7.png)
+![img](./assets/7.png)
 
 ![img](https://www.yahboom.net/public/upload/upload-html/1740571311/8.png)
 
-Wiring instructions for encoder speed measurement TT motor:
+Instruksi perkabelan motor 310:
 
-When the A phase of the encoder TT motor is connected to the A phase of the four-way motor driver board, and the B phase is connected to the B phase, then when configuring the motor type, you should select `$mtype:3#`, the model of the TT motor with encoder.
+Ketika fase A motor 310 terhubung ke fase A board driver motor 4-channel, dan fase B terhubung ke fase B, maka saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:2#`, model motor 310.
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/15.png)
+![img](./assets/9.png)
 
-## 5. L-type 520 motor
+ 
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/17.png)
+Jika Anda membeli motor 310 dalam kit chassis, motor ini memiliki kabel double-ended PH2.0-6PIN. Anda dapat menghubungkan ujung hitam ke motor 310 dan ujung putih ke interface motor encoder PH2.0-6PIN pada board driver motor 4-channel.
 
-| Parameter            | Value/Description |
-| -------------------- | ----------------- |
-| Model                | L-type 520 motor  |
-| Starting voltage     | 6V                |
-| Rated voltage        | 12V               |
-| Reduction ratio      | 1:40              |
-| Magnetic loop number | 11线              |
-| No-load current      | ≥450mA            |
-| No-load speed        | 300r/min±5%       |
-| Rated torque         | 4.4KG.CM          |
-| Rated speed          | 150r/min          |
-| Stall torque         | 10KG.CM           |
-| Stall current        | 4A                |
+Pada saat ini, pilih `$mtype:2#` untuk mengkonfigurasi tipe motor, yaitu model motor 310.
 
-Recommended power supply: **12V**.
+ 
 
-The two parameters **reduction ratio and encoder line number** in the main parameter table are required. These two parameters may be modified when using the 4-channel motor driver board.
+![img](./assets/10.png)
 
-Recommended wiring: The purchased L-type 520 motor will come with two types of wires. Here we recommend that you choose the black PH2.0-6PIN double-headed cable, one end is connected to the motor, and the other end is directly connected to the PH2.0-6PIN encoder motor interface on the 4-channel motor driver board. 
+![img](./assets/10.1.png)
 
-This wiring is the most convenient, but it can be found that the A on the motor corresponds to the B phase of the 4-channel motor driver board. Therefore, when configuring the motor type on the 4-channel motor driver board, you should choose `$mtype:1#`, the model of the 520 motor.
+![img](./assets/10.2.png)
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/3.png)![img](https://www.yahboom.net/public/upload/upload-html/1740571311/4.png)
+## 3. Motor TT DC
 
-L-type 520 motor wiring instructions:
+![img](./assets/11.png)
 
-If you use PH2.0-6PIN to Dupont line connection, you can connect according to the picture below. With this connection, the motor's A phase will be connected to the 4-channel motor driver board A phase, and B phase will be connected to B phase. 
+| Parameter                 | Nilai/Deskripsi |
+| ------------------------- | --------------- |
+| Model                     | Motor gear TT   |
+| Material sikat            | Sikat karbon    |
+| Rasio reduksi             | 1:48            |
+| Tegangan rated            | 6V              |
+| Arus idle                 | 200MA           |
+| Arus stall                | 1.5A            |
+| Torsi                     | 0.8N.m          |
+| Kecepatan sebelum reduksi | 12000±10%rpm    |
+| Kecepatan setelah reduksi | 245±10%rpm      |
 
-However, when configuring the motor type, you should select `$mtype:2#`, the model of the 310 motor.
+Catu daya yang direkomendasikan: **7.4V**
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/5.png)
+Motor ini tidak memiliki encoder, jadi Anda hanya perlu memodifikasi **tipe motor** dan **rasio reduksi** di board driver motor empat jalur. Saat mengkonfigurasi tipe motor, pilih `$mtype:4#`, model motor TT tanpa encoder.
+
+Perkabelan yang direkomendasikan: Hubungkan interface XH2.54-2PIN pada motor TT langsung ke soket XH2.54-2PIN pada board driver motor 4-channel.
+
+![img](./assets/12.png)
+
+ 
+
+![img](./assets/13.png)
+
+ 
+
+ 
+
+## 4. Motor TT dengan pengukuran kecepatan encoder
+
+![img](./assets/14.png)
+
+| Parameter                          | Nilai/Deskripsi                                              |
+| ---------------------------------- | ------------------------------------------------------------ |
+| Model                              | Motor TT poros tunggal logam 13-kawat                        |
+| Tipe motor                         | Motor 130                                                    |
+| Tipe motor/material sikat          | Sikat tembaga                                                |
+| Rasio reduksi                      | 1:45                                                         |
+| Tegangan rated                     | 6V                                                           |
+| Arus tanpa beban                   | 0.08A                                                        |
+| Arus rated                         | 0.3A                                                         |
+| Arus stall                         | 1.1A                                                         |
+| Torsi                              | 1.2N.m                                                       |
+| Kecepatan sebelum reduksi          | 16000±5%rpm                                                  |
+| Kecepatan setelah reduksi          | 355±5%rpm                                                    |
+| Tipe encoder                       | Encoder fase AB Hall                                         |
+| Catu daya encoder                  | 3.3-5V                                                       |
+| Jumlah garis encoder               | 13 garis                                                     |
+| Hitungan maksimum per putaran roda | 2340                                                         |
+| Fitur                              | Dengan pembentukan pull-up built-in, MCU dapat membaca langsung |
+
+Catu daya yang direkomendasikan: **7.4V**. Dapat dihubungkan ke 5~13V, **direkomendasikan menggunakan supply tegangan 7.4V**.
+
+Dua parameter **rasio reduksi dan jumlah garis encoder** dalam tabel parameter utama diperlukan. Dua parameter ini mungkin perlu dimodifikasi saat menggunakan board driver motor 4-channel.
+
+Perkabelan yang direkomendasikan: Gunakan kabel PH2.0-6PIN ke kabel Dupont dan hubungkan ke soket IO board driver motor 4-channel.
+
+![img](./assets/7-1761613091410-8.png)
+
+![img](./assets/8.png)
+
+Instruksi perkabelan untuk motor TT pengukuran kecepatan encoder:
+
+Ketika fase A motor TT encoder terhubung ke fase A board driver motor empat jalur, dan fase B terhubung ke fase B, maka saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:3#`, model motor TT dengan encoder.
+
+![img](./assets/15.png)
+
+## 5. Motor 520 tipe-L
+
+![img](./assets/17.png)
+
+| Parameter             | Nilai/Deskripsi  |
+| --------------------- | ---------------- |
+| Model                 | Motor 520 tipe-L |
+| Tegangan starting     | 6V               |
+| Tegangan rated        | 12V              |
+| Rasio reduksi         | 1:40             |
+| Jumlah loop magnetik  | 11线             |
+| Arus tanpa beban      | ≥450mA           |
+| Kecepatan tanpa beban | 300r/min±5%      |
+| Torsi rated           | 4.4KG.CM         |
+| Kecepatan rated       | 150r/min         |
+| Torsi stall           | 10KG.CM          |
+| Arus stall            | 4A               |
+
+Catu daya yang direkomendasikan: **12V**.
+
+Dua parameter **rasio reduksi dan jumlah garis encoder** dalam tabel parameter utama diperlukan. Dua parameter ini mungkin perlu dimodifikasi saat menggunakan board driver motor 4-channel.
+
+Perkabelan yang direkomendasikan: Motor 520 tipe-L yang dibeli akan dilengkapi dengan dua jenis kabel. Di sini kami merekomendasikan agar Anda memilih kabel double-headed PH2.0-6PIN hitam, satu ujung terhubung ke motor, dan ujung lainnya langsung terhubung ke interface motor encoder PH2.0-6PIN pada board driver motor 4-channel. 
+
+Perkabelan ini adalah yang paling nyaman, tetapi dapat ditemukan bahwa A pada motor sesuai dengan fase B board driver motor 4-channel. Oleh karena itu, saat mengkonfigurasi tipe motor pada board driver motor 4-channel, Anda harus memilih `$mtype:1#`, model motor 520.
+
+![img](https://www.yahboom.net/public/upload/upload-html/1740571311/3.png)![img](./assets/4.png)
+
+Instruksi perkabelan motor 520 tipe-L:
+
+Jika Anda menggunakan koneksi PH2.0-6PIN ke kabel Dupont, Anda dapat menghubungkan sesuai dengan gambar di bawah ini. Dengan koneksi ini, fase A motor akan terhubung ke fase A board driver motor 4-channel, dan fase B akan terhubung ke fase B. 
+
+Namun, saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:2#`, model motor 310.
+
+![img](./assets/5-1761612922479-53.png)
 
 ## 1.PC host
 
-# Serial communication
+# Komunikasi Serial
 
-## 1.1 Explanation
+## 1.1 Penjelasan
 
-**Please read 《0. Motor introduction and usage》first to understand the motor parameters, wiring method, and power supply voltage you are currently using. To avoid improper operation and damage to the driver board or motor.**
+**Harap baca 《0. Pengenalan dan penggunaan motor》 terlebih dahulu untuk memahami parameter motor, metode perkabelan, dan tegangan catu daya yang saat ini Anda gunakan. Untuk menghindari operasi yang tidak tepat dan kerusakan pada board driver atau motor.**
 
-Connect the driver board to the computer through the TYPE-C port on the driver board, and use the serial port assistant to send commands to the driver board for control and data reading.
+Hubungkan board driver ke komputer melalui port TYPE-C pada board driver, dan gunakan asisten port serial untuk mengirim perintah ke board driver untuk kontrol dan pembacaan data.
 
-##### Hardware wiring:
+##### Perkabelan perangkat keras:
 
-| **Motor** | **4-channel motor drive board**(Motor) |
-| :-------: | :------------------------------------: |
-|    M2     |                   M-                   |
-|     V     |                  3V3                   |
-|     A     |                  H1A                   |
-|     B     |                  H1B                   |
-|     G     |                  GND                   |
-|    M1     |                   M+                   |
+| **Motor** | **Board driver motor 4-channel**(Motor) |
+| :-------: | :-------------------------------------: |
+|    M2     |                   M-                    |
+|     V     |                   3V3                   |
+|     A     |                   H1A                   |
+|     B     |                   H1B                   |
+|     G     |                   GND                   |
+|    M1     |                   M+                    |
 
  
 
-## 1.2 Instructions
+## 1.2 Instruksi
 
-Open the serial port assistant software on the computer. Here we take Uart Assistant as an example.
+Buka software asisten port serial di komputer. Di sini kita mengambil Uart Assistant sebagai contoh.
 
 ![image-20250218145905154](./assets/1-1761604274918-25.png)
 
  
 
-Serial port configuration: **Baud rate 115200, no parity check, no hardware flow control, 1 stop bit**
+Konfigurasi port serial: **Baud rate 115200, tanpa pemeriksaan paritas, tanpa kontrol aliran perangkat keras, 1 stop bit**
 
-After configuration, you can send commands in the send window below to control the driver board. All serial port commands and explanations are listed in the course《1.2 Control command》.
+Setelah konfigurasi, Anda dapat mengirim perintah di jendela kirim di bawah untuk mengontrol board driver. Semua perintah port serial dan penjelasan tercantum dalam kursus《1.2 Perintah kontrol》.
 
-Next, we will demonstrate how to modify the default parameters to use **310 motor, 48mm diameter tire**.
+Selanjutnya, kami akan mendemonstrasikan cara memodifikasi parameter default untuk menggunakan **motor 310, ban diameter 48mm**.
 
 ![img](./assets/2-1761604274919-26.png)
 
-First, issue the command `$read_flash#`, which is to query the power-off saving parameters in the flash. It can save tire type, motor dead zone, motor phase line, motor reduction ratio, wheel diameter, and motor PID parameters.
+Pertama, keluarkan perintah `$read_flash#`, yang digunakan untuk query parameter penyimpanan power-off di flash. Ini dapat menyimpan tipe ban, zona mati motor, garis fase motor, rasio reduksi motor, diameter roda, dan parameter PID motor.
 
-Then, according to the parameters of the motor and tire, enter the send parameter configuration command in the send column below.
+Kemudian, sesuai dengan parameter motor dan ban, masukkan perintah konfigurasi parameter kirim di kolom kirim di bawah.
 
 ![img](./assets/3-1761604274919-27.png)
 
 ![img](./assets/4-1761604274919-28.png)
 
-We can see that after each configuration command is issued, the driver board will send back an 'OK!' message, indicating that the setting is successful. Finally, use the command to view the flash to see that the parameters just modified have taken effect. The modification method of PID parameters is the same as these, but it generally does not need to be modified, so it will not be demonstrated here.
+Kita dapat melihat bahwa setelah setiap perintah konfigurasi dikeluarkan, board driver akan mengirim kembali pesan 'OK!', menunjukkan bahwa pengaturan berhasil. Terakhir, gunakan perintah untuk melihat flash untuk melihat bahwa parameter yang baru saja dimodifikasi telah berlaku. Metode modifikasi parameter PID sama dengan ini, tetapi umumnya tidak perlu dimodifikasi, jadi tidak akan didemonstrasikan di sini.
 
-If you want to control the movement of the motor, send the command `$spd:0,0,0,0#` or `$pwm:0,0,0,0#`. The spd command controls the motor with an encoder, and the pwm command can control the motor with or without an encoder. Suppose I want to control the 310 motor plugged into Motor1 on the driver board, which has an encoder, then send `$spd:100,0,0,0#` to control it. To control the motor connected to Motor2, modify the second value: `$spd:0,100,0,0#`.
+Jika Anda ingin mengontrol gerakan motor, kirim perintah `$spd:0,0,0,0#` atau `$pwm:0,0,0,0#`. Perintah spd mengontrol motor dengan encoder, dan perintah pwm dapat mengontrol motor dengan atau tanpa encoder. Misalkan saya ingin mengontrol motor 310 yang dicolokkan ke Motor1 pada board driver, yang memiliki encoder, maka kirim `$spd:100,0,0,0#` untuk mengontrolnya. Untuk mengontrol motor yang terhubung ke Motor2, modifikasi nilai kedua: `$spd:0,100,0,0#`.
 
-## For Arduino
+## Untuk Arduino
 
-# Drive motor and read encoder-USART
+# Menggerakkan motor dan membaca encoder-USART
 
-## 1.1 Explanation
+## 1.1 Penjelasan
 
-**Please read 《0. Motor introduction and usage》first to understand the motor parameters, wiring method, and power supply voltage you are currently using. To avoid improper operation and damage to the driver board or motor.**
+**Harap baca 《0. Pengenalan dan penggunaan motor》 terlebih dahulu untuk memahami parameter motor, metode perkabelan, dan tegangan catu daya yang saat ini Anda gunakan. Untuk menghindari operasi yang tidak tepat dan kerusakan pada board driver atau motor.**
 
-I2C and serial communication cannot be shared, only one can be selected.
+I2C dan komunikasi serial tidak dapat dibagikan, hanya satu yang dapat dipilih.
 
-The course uses the Arduino UNO board. And use is Arduino 1.8.5 IDE 
+Kursus ini menggunakan board Arduino UNO. Dan menggunakan Arduino 1.8.5 IDE 
 
-**Before writing the program, do not connect the driver board to the RX pin on the Arduino, otherwise the program cannot be written into the board.**
+**Sebelum menulis program, jangan hubungkan board driver ke pin RX pada Arduino, jika tidak program tidak dapat ditulis ke board.**
 
-**After the program is written, connect the RX pin on the Arduino.**
+**Setelah program ditulis, hubungkan pin RX pada Arduino.**
 
-##### Hardware wiring:
+##### Perkabelan perangkat keras:
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571339/1.png)
+![img](./assets/1-1761613356847-16.png)
 
-| Motor | **4-channel motor drive board**(Motor) |
-| :---: | :------------------------------------: |
-|  M2   |                   M-                   |
-|   V   |                  3V3                   |
-|   A   |                  H1A                   |
-|   B   |                  H1B                   |
-|   G   |                  GND                   |
-|  M1   |                   M+                   |
+| Motor | **Board driver motor 4-channel**(Motor) |
+| :---: | :-------------------------------------: |
+|  M2   |                   M-                    |
+|   V   |                   3V3                   |
+|   A   |                   H1A                   |
+|   B   |                   H1B                   |
+|   G   |                   GND                   |
+|  M1   |                   M+                    |
 
-| **4-channel motor drive board** | Arduino UNO |
-| :-----------------------------: | :---------: |
-|               RX2               |     TX      |
-|               TX2               |     RX      |
-|               GND               |     GND     |
-|               5V                |     5V      |
+| **Board driver motor 4-channel** | Arduino UNO |
+| :------------------------------: | :---------: |
+|               RX2                |     TX      |
+|               TX2                |     RX      |
+|               GND                |     GND     |
+|                5V                |     5V      |
 
-Since the hardware serial port on the Arduino board is used to communicate with the driver board, this case requires an additional USB to TTL serial port to print data.
+Karena port serial perangkat keras pada board Arduino digunakan untuk berkomunikasi dengan board driver, kasus ini memerlukan port serial USB ke TTL tambahan untuk mencetak data.
 
 | USB TO TTL | Arduino UNO |
 | :--------: | :---------: |
@@ -554,9 +547,9 @@ Since the hardware serial port on the Arduino board is used to communicate with 
 |    RXD     |      3      |
 |    TXD     |      2      |
 
-Serial port configuration: **Baud rate 115200, no parity check, no hardware flow control, 1 stop bit**
+Konfigurasi port serial: **Baud rate 115200, tanpa pemeriksaan paritas, tanpa kontrol aliran perangkat keras, 1 stop bit**
 
-## 1.2 Code analysis
+## 1.2 Analisis kode
 
 ```
 #define UPLOAD_DATA 3  //0:不接受数据 1:接收总的编码器数据 2:接收实时的编码器 3:接收电机当前速度 mm/s
@@ -999,8 +992,8 @@ In the main program loop, the speed of the four motors will be slowly increased 
 
 At the same time, the data sent by the driver board is read and printed out.
 
-```
-//检验从驱动板发送过来的数据，符合通讯协议的数据则保存下来
+```c++
+//Memeriksa data yang dikirim dari board driver, dan menyimpan data yang memenuhi protokol komunikasi
 //Check the data sent from the driver board, and save the data that meets the communication protocol
 void Deal_Control_Rxtemp(uint8_t rxtemp)
 {
@@ -1011,7 +1004,7 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
     if(rxtemp == '$' &&     start_flag == 0)
     {
         start_flag = 1;
-        memset(g_recv_buff,0,RXBUFF_LEN);//清空数据 Clear data
+        memset(g_recv_buff,0,RXBUFF_LEN);//Bersihkan data Clear data
     }
     
     else if(start_flag == 1)
@@ -1021,16 +1014,16 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
                 start_flag = 0;
                 step = 0;
                 g_recv_flag = 1;
-        // 检查前四个字符  Check the first four characters
+        // Periksa empat karakter pertama  Check the first four characters
     if (strncmp("MAll:",(char*)g_recv_buff,5)==0 ||
         strncmp("MTEP:",(char*)g_recv_buff,5)==0 ||
         strncmp("MSPD:",(char*)g_recv_buff,5)==0) {
         if (isValidNumbers((char*)g_recv_buff + 5)) {
-                // 如果符合条件，打印数据  If the conditions are met, print the data
+                // Jika kondisi terpenuhi, cetak data  If the conditions are met, print the data
                 memcpy(g_recv_buff_deal,g_recv_buff,RXBUFF_LEN);
             }
     } else {
-        // 不匹配时清除缓冲区，避免残留无效数据 Clear the buffer when there is no match to avoid residual invalid data
+        // Bersihkan buffer saat tidak cocok untuk menghindari data tidak valid yang tersisa Clear the buffer when there is no match to avoid residual invalid data
         memset(g_recv_buff, 0, RXBUFF_LEN);
     }
             }
@@ -1040,7 +1033,7 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
                 {
                     start_flag = 0;
                     step = 0;
-                    memset(g_recv_buff,0,RXBUFF_LEN);//清空接收数据   Clear received data
+                    memset(g_recv_buff,0,RXBUFF_LEN);//Bersihkan data yang diterima   Clear received data
                 }
                 else
                 {
@@ -1053,24 +1046,24 @@ void Deal_Control_Rxtemp(uint8_t rxtemp)
 }
 
 
-//将从驱动板保存到的数据进行格式处理，然后准备打印
+//Memformat data yang disimpan dari board driver dan mempersiapkannya untuk dicetak
 //Format the data saved from the driver board and prepare it for printing
 void Deal_data_real(void)
 {
      static uint8_t data[RXBUFF_LEN];
    uint8_t  length = 0;
-    //总体的编码器    Overall encoder
+    //Encoder keseluruhan    Overall encoder
      if ((strncmp("MAll",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5]; //Hapus titik dua Remove the colon
         }  
                 data[length] = '\0';    
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节    Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];//Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte    Pointer array The length is defined by the split number char 1 byte char* 4 bytes
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");//Pisahkan dengan koma Split by comma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
@@ -1078,39 +1071,39 @@ void Deal_data_real(void)
                 }
                 
         }
-        //10ms的实时编码器数据  10ms real-time encoder data
+        //Data encoder real-time 10ms  10ms real-time encoder data
         else if ((strncmp("MTEP",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5]; //Hapus titik dua Remove the colon
         }  
                 data[length] = '\0';        
 
 
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];//Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");//Pisahkan dengan koma Split by comma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
                         Encoder_Offset[i] = atoi(mystr_temp[i]);
                 }
         }
-        //速度    Speed
+        //Kecepatan    Speed
         else if ((strncmp("MSPD",(char*)g_recv_buff_deal,4)==0))
     {
         length = strlen((char*)g_recv_buff_deal)-5;
         for (uint8_t i = 0; i < length; i++)
         {
-            data[i] = g_recv_buff_deal[i+5]; //去掉冒号 Remove the colon
+            data[i] = g_recv_buff_deal[i+5]; //Hapus titik dua Remove the colon
         }  
                 data[length] = '\0';    
                 
-                char* strArray[10];//指针数组 长度根据分割号定义  char 1字节   char* 4字节       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
+                char* strArray[10];//Array pointer Panjangnya didefinisikan oleh nomor pemisahan char 1 byte char* 4 byte       Pointer array The length is defined by the split number char 1 byte char* 4 bytes
                 char mystr_temp[4][10] = {'\0'}; 
-                splitString(strArray,(char*)data, ", ");//以逗号切割 Split by comma
+                splitString(strArray,(char*)data, ", ");//Pisahkan dengan koma Split by comma
                 for (int i = 0; i < 4; i++)
                 {
                         strcpy(mystr_temp[i],strArray[i]);
@@ -1192,12 +1185,8 @@ sudo apt install python3-serial
 ## 1.3 Code analysis
 
 ```
-UPLOAD_DATA = 3  #0:不接受数据 1:接收总的编码器数据 2:接收实时的编码器 3:接收电机当前速度 mm/s
-                 #0: Do not receive data 1: Receive total encoder data 2: Receive real-time encoder 3: Receive current motor speed mm/s
-
-
-MOTOR_TYPE = 1  #1:520电机 2:310电机 3:测速码盘TT电机 4:TT直流减速电机 5:L型520电机
-                #1:520 motor 2:310 motor 3:speed code disc TT motor 4:TT DC reduction motor 5:L type 520 motor
+UPLOAD_DATA = 3  #0: Tidak menerima data 1: Menerima data encoder total 2: Menerima encoder real-time 3: Menerima kecepatan motor saat ini mm/s
+MOTOR_TYPE = 1  #1:motor 520 2:motor 310 3:motor TT disk kode kecepatan 4:motor reduksi DC TT 5:motor 520 tipe L
 ```
 
 - UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
@@ -1205,23 +1194,19 @@ MOTOR_TYPE = 1  #1:520电机 2:310电机 3:测速码盘TT电机 4:TT直流减速
 
 If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
 
-```
+```c++
 def set_motor_parameter():
-
-
     if MOTOR_TYPE == 1:
-        set_motor_type(1)  # 配置电机类型
+        set_motor_type(1)  # Konfigurasi tipe motor
         time.sleep(0.1)
-        set_pluse_phase(30)  # 配置减速比，查电机手册得出
+        set_pluse_phase(30)  # Konfigurasi rasio reduksi, periksa manual motor
         time.sleep(0.1)
-        set_pluse_line(11)  # 配置磁环线，查电机手册得出
+        set_pluse_line(11)  # Konfigurasi garis cincin magnetik, periksa manual motor
         time.sleep(0.1)
-        set_wheel_dis(67.00)  # 配置轮子直径，测量得出
+        set_wheel_dis(67.00)  # Konfigurasi diameter roda, hasil pengukuran
         time.sleep(0.1)
-        set_motor_deadzone(1900)  # 配置电机死区，实验得出
+        set_motor_deadzone(1900)  # Konfigurasi zona mati motor, hasil eksperimen
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 2:
         set_motor_type(2)
         time.sleep(0.1)
@@ -1233,8 +1218,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1600)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 3:
         set_motor_type(3)
         time.sleep(0.1)
@@ -1246,8 +1229,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1250)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 4:
         set_motor_type(4)
         time.sleep(0.1)
@@ -1255,8 +1236,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1000)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 5:
         set_motor_type(1)
         time.sleep(0.1)
@@ -1268,8 +1247,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1900)
         time.sleep(0.1)
-
-
 ```
 
 This is used to store the parameters of the Yahboom motor. By modifying the MOTOR_TYPE parameter above, one-click configuration can be achieved.
@@ -1278,44 +1255,32 @@ In normally, do not modify the code here when using the Yahboom motor.
 
 If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
 
-```
+```c++
 if __name__ == "__main__":
     try:
         t = 0
         print("please wait...")
-        send_upload_command(UPLOAD_DATA)#给电机模块发送需要上报的数据 Send the data that needs to be reported to the motor module
+        send_upload_command(UPLOAD_DATA)  # Kirim data yang perlu dilaporkan ke modul motor
         time.sleep(0.1)
-        set_motor_parameter()#设计电机参数  Design motor parameters
-
-
+        set_motor_parameter()  # Atur parameter motor
         while True:
-            received_message = receive_data()  # 接收消息    Receiving Messages
-            if received_message:    # 如果有数据返回 If there is data returned
-                parsed = parse_data(received_message) # 解析数据 Parsing the data
+            received_message = receive_data()  # Menerima pesan
+            if received_message:  # Jika ada data yang dikembalikan
+                parsed = parse_data(received_message)  # Parsing data
                 if parsed:
-                    print(parsed)  # 打印解析后的数据   Print the parsed data
-
-
+                    print(parsed)  # Cetak data yang telah di-parsing
             t += 10
             M1 = t
             M2 = t
             M3 = t
             M4 = t
-
-
             if MOTOR_TYPE == 4:
                 control_pwm(M1*2, M2*2, M3*2, M4*2)
             else:
-                control_speed(M1, M2, M3, M4)#直接发送命令控制电机  Send commands directly to control the motor
-
-
+                control_speed(M1, M2, M3, M4)  # Kirim perintah langsung untuk mengontrol motor
             if t> 1000 or t < -1000:
                 t = 0
-
-
             time.sleep(0.1)
-
-
 ```
 
 In the main program loop, the speed of the four motors will be slowly increased from 0 to 1000. If the motor type is 4, that is, the motor without encoder, the PWM of the motor is directly controlled. 
@@ -1324,12 +1289,10 @@ At the same time, the data sent by the driver board is read and printed out.
 
 ```
 def parse_data(data):
-    data = data.strip()  # 去掉两端的空格或换行符   Remove spaces or line breaks at both ends
-
-
+    data = data.strip()  # Hapus spasi atau baris baru di kedua ujung
     if data.startswith("$MAll:"):
-        values_str = data[6:-1]  # 去除 "$MAll:" 和 "#" Remove "$MAll:" and "#"
-        values = list(map(int, values_str.split(',')))  # 分割并转换为整数  Split and convert to integer
+        values_str = data[6:-1]  # Hapus "$MAll:" dan "#"
+        values = list(map(int, values_str.split(',')))  # Pisahkan dan konversi ke integer
         parsed = ', '.join([f"M{i+1}:{value}" for i, value in enumerate(values)])
         return parsed
     elif data.startswith("$MTEP:"):
@@ -1342,8 +1305,6 @@ def parse_data(data):
         values = [float(value) if '.' in value else int(value) for value in values_str.split(',')]
         parsed = ', '.join([f"M{i+1}:{value}" for i, value in enumerate(values)])
         return parsed
-
-
 ```
 
 Extract the saved original data and reconstruct it into a new printing format.
@@ -1410,15 +1371,9 @@ After successfully identifying the serial port and printing the firmware informa
 
 ## 1.3 Code analysis
 
-```
-UPLOAD_DATA = 3  #0:不接受数据 1:接收总的编码器数据 2:接收实时的编码器 3:接收电机当前速度 mm/s
-                 #0: Do not receive data 1: Receive total encoder data 2: Receive real-time encoder 3: Receive current motor speed mm/s
-
-
-MOTOR_TYPE = 1  #1:520电机 2:310电机 3:测速码盘TT电机 4:TT直流减速电机 5:L型520电机
-                #1:520 motor 2:310 motor 3:speed code disc TT motor 4:TT DC reduction motor 5:L type 520 motor
-
-
+```c++
+UPLOAD_DATA = 3  #0: Tidak menerima data 1: Menerima data encoder total 2: Menerima encoder real-time 3: Menerima kecepatan motor saat ini mm/s
+MOTOR_TYPE = 1  #1: motor 520 2: motor 310 3: motor TT disk kode kecepatan 4: motor reduksi DC TT 5: motor 520 tipe L
 ```
 
 - UPLOAD_DATA: used to set the data of the motor encoder. Set 1 to the total number of encoder pulses and 2 to the real-time pulse data of 10ms.
@@ -1426,23 +1381,19 @@ MOTOR_TYPE = 1  #1:520电机 2:310电机 3:测速码盘TT电机 4:TT直流减速
 
 If you need to drive the motor and observe the data, just modify the two numbers at the beginning of the program. No changes are required to the rest of the code.
 
-```
+```c++
 def set_motor_parameter():
-
-
     if MOTOR_TYPE == 1:
-        set_motor_type(1)  # 配置电机类型
+        set_motor_type(1)  # Konfigurasi tipe motor
         time.sleep(0.1)
-        set_pluse_phase(30)  # 配置减速比，查电机手册得出
+        set_pluse_phase(30)  # Konfigurasi rasio reduksi, periksa manual motor
         time.sleep(0.1)
-        set_pluse_line(11)  # 配置磁环线，查电机手册得出
+        set_pluse_line(11)  # Konfigurasi garis cincin magnetik, periksa manual motor
         time.sleep(0.1)
-        set_wheel_dis(67.00)  # 配置轮子直径，测量得出
+        set_wheel_dis(67.00)  # Konfigurasi diameter roda, hasil pengukuran
         time.sleep(0.1)
-        set_motor_deadzone(1600)  # 配置电机死区，实验得出
+        set_motor_deadzone(1600)  # Konfigurasi zona mati motor, hasil eksperimen
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 2:
         set_motor_type(2)
         time.sleep(0.1)
@@ -1454,8 +1405,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1200)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 3:
         set_motor_type(3)
         time.sleep(0.1)
@@ -1467,8 +1416,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1250)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 4:
         set_motor_type(4)
         time.sleep(0.1)
@@ -1476,8 +1423,6 @@ def set_motor_parameter():
         time.sleep(0.1)
         set_motor_deadzone(1000)
         time.sleep(0.1)
-
-
     elif MOTOR_TYPE == 5:
         set_motor_type(1)
         time.sleep(0.1)
@@ -1497,24 +1442,20 @@ In normally, do not modify the code here when using the Yahboom motor.
 
 If you are using your own motor, or if a certain data needs to be modified according to your needs, you can check the course《1.2 Control command》 to understand the specific meaning of each command.
 
-```
+```c++
 if __name__ == "__main__":
     try:
         t = 0
         print("please wait...")
-        send_upload_command(UPLOAD_DATA)#给电机模块发送需要上报的数据 Send the data that needs to be reported to the motor module
+        send_upload_command(UPLOAD_DATA)  # Kirim data yang perlu dilaporkan ke modul motor
         time.sleep(0.1)
-        set_motor_parameter()#设计电机参数  Design motor parameters
-
-
+        set_motor_parameter()  # Atur parameter motor
         while True:
-            received_message = receive_data()  # 接收消息    Receiving Messages
-            if received_message:    # 如果有数据返回 If there is data returned
-                parsed = parse_data(received_message) # 解析数据 Parsing the data
+            received_message = receive_data()  # Menerima pesan
+            if received_message:  # Jika ada data yang dikembalikan
+                parsed = parse_data(received_message)  # Parsing data
                 if parsed:
-                    print(parsed)  # 打印解析后的数据   Print the parsed data
-
-
+                    print(parsed)  # Cetak data yang telah di-parsing
             t += 10
             M1 = t
             M2 = t
@@ -1524,16 +1465,10 @@ if __name__ == "__main__":
             if MOTOR_TYPE == 4:
                 control_pwm(M1*2, M2*2, M3*2, M4*2)
             else:
-                control_speed(M1, M2, M3, M4)#直接发送命令控制电机  Send commands directly to control the motor
-
-
+                control_speed(M1, M2, M3, M4)  # Kirim perintah langsung untuk mengontrol motor
             if t> 1000 or t < -1000:
                 t = 0
-
-
             time.sleep(0.1)
-
-
 ```
 
 In the loop program, the speed of the four motors will be slowly increased from 0 to 1000. If the motor type is 4, that is, the motor without encoder, the motor's PWM is directly controlled. 
@@ -1541,29 +1476,26 @@ In the loop program, the speed of the four motors will be slowly increased from 
 At the same time, the data sent by the driver board is read and printed out at the same time.
 
 ```
-# 接收数据  Receiving Data
+# Menerima data
 def receive_data():
     global recv_buffer
-    if uart.any() > 0:  # 检查串口缓冲区是否有数据  Check if there is data in the serial port buffer
-        recv_buffer += uart.read(uart.any()).decode()  # 读取并解码数据  Read and decode data
+    if uart.any() > 0:  # Periksa apakah ada data di buffer port serial
+        recv_buffer += uart.read(uart.any()).decode()  # Baca dan decode data
         
-        # 按结束符 "#" 分割消息 Split the message by the ending character "#"
+        # Pisahkan pesan berdasarkan karakter akhir "#"
         messages = recv_buffer.split("#")
         recv_buffer = messages[-1]
         
         if len(messages) > 1:
-            return messages[0] + "#"  #返回一条完整的消息   Return a complete message
+            return messages[0] + "#"  # Kembalikan satu pesan lengkap
     return None
 
-
-# 解析接收到的数据  Parsing received data
+# Parsing data yang diterima
 def parse_data(data):
-    data = data.strip()  # 去掉两端的空格或换行符   Remove spaces or line breaks at both ends
-
-
+    data = data.strip()  # Hapus spasi atau baris baru di kedua ujung
     if data.startswith("$MAll:"):
-        values_str = data[6:-1]  # 去除 "$MAll:" 和 "#" Remove "$MAll:" and "#"
-        values = list(map(int, values_str.split(',')))  # 分割并转换为整数  Split and convert to integer
+        values_str = data[6:-1]  # Hapus "$MAll:" dan "#"
+        values = list(map(int, values_str.split(',')))  # Pisahkan dan konversi ke integer
         parsed = ', '.join([f"M{i+1}:{value}" for i, value in enumerate(values)])
         return parsed
     elif data.startswith("$MTEP:"):
