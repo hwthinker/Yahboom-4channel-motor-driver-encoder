@@ -217,15 +217,15 @@ Catatan: Setelah perintah ini dikirim, encoder atau data kecepatan akan secara o
 
 Buka software pembakaran FlyMcu yang disediakan dalam lampiran, hubungkan port typec dari board driver motor empat jalur ke komputer, kemudian klik Enumport di software tersebut. Dan pilih port serial yang digunakan oleh board driver Anda.
 
-![image-20250611160834336](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/image-20250611160834336.png)
+![image-20250611160834336](assets/image-20250611160834336.png)
 
 Pada file program, pilih file firmware yang telah diunduh, kemudian perhatikan bahwa pengaturan lain dalam kotak merah harus sama dengan yang ada di gambar.
 
-![image-20250611160857277](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/image-20250611160857277.png)
+![image-20250611160857277](assets/image-20250611160857277.png)
 
 Terakhir, cukup klik Start Programming. Tidak diperlukan operasi lain dan firmware akan mulai dibakar. Gambar berikut menunjukkan informasi yang ditampilkan setelah pembakaran berhasil:
 
-![image-20250611160924015](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/image-20250611160924015.png)
+![image-20250611160924015](assets/image-20250611160924015.png)
 
 Terakhir, cabut dan colokkan kabel type-c lagi untuk me-restart board driver. Jika lampu merah selalu menyala dan lampu hijau berkedip dua kali setiap 3 detik, maka pembakaran berhasil.
 
@@ -235,7 +235,7 @@ Terakhir, cabut dan colokkan kabel type-c lagi untuk me-restart board driver. Ji
 
 ## 1. Motor 520
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/1.png)
+![img](assets/1.png)
 
 |         Parameter         |                         MD520Z19_12V                         |                         MD520Z30_12V                         |                         MD520Z56_12V                         |
 | :-----------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -265,7 +265,7 @@ Jika Anda ingin membedakan model motor 520 yang Anda beli, Anda dapat langsung m
 
 Misalnya, label motor 520 di tangan saya mengatakan 333RPM, jadi Anda harus memperhatikan parameter dalam kolom **MD520Z30_12V**. Khususnya, dua parameter **rasio reduksi dan jumlah garis cincin magnetik** mungkin perlu dimodifikasi saat menggunakan board driver motor 4-channel.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/2.png)
+![img](assets/2.png)
 
 Perkabelan yang direkomendasikan:
 
@@ -273,7 +273,7 @@ Motor 520 yang Anda beli akan dilengkapi dengan dua jenis kabel. Di sini kami me
 
 Jadi saat mengkonfigurasi tipe motor pada board driver motor empat jalur, Anda harus memilih `$mtype:1#`, model motor 520.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/3.png)![img](https://www.yahboom.net/public/upload/upload-html/1740571311/4.png)
+![img]assets/3.png)![img](https://www.yahboom.net/public/upload/upload-html/1740571311/4.png)
 
 Instruksi perkabelan motor 520:
 
@@ -283,13 +283,13 @@ Namun, saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:2#`, model mo
 
  
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/5.png)
+![img](assets/5.png)
 
  
 
 ## 2. Motor 310
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/6.png)
+![img](assets/6.png)
 
 ​	
 
@@ -320,15 +320,15 @@ Dua parameter **rasio reduksi dan jumlah garis cincin magnetik** dalam tabel par
 
 Jika Anda membeli motor 310 sendiri, Anda akan menerima kabel PH2.0-6PIN ke DuPont. Saat menghubungkan board driver 4-channel, hubungkan ke soket IO-nya.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/7.png)
+![img](assets/7.png)
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/8.png)
+![img](./assets/8-1761629622233-1.png)
 
 Instruksi perkabelan motor 310:
 
 Ketika fase A motor 310 terhubung ke fase A board driver motor 4-channel, dan fase B terhubung ke fase B, maka saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:2#`, model motor 310.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/9.png)
+![img](assets/9.png)
 
  
 
@@ -338,15 +338,15 @@ Pada saat ini, pilih `$mtype:2#` untuk mengkonfigurasi tipe motor, yaitu model m
 
  
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/10.png)
+![img](assets/10.png)
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/10.1.png)
+![img](assets/10.1.png)
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/10.2.png)
+![img](assets/10.2.png)
 
 ## 3. Motor TT DC
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/11.png)
+![img](assets/11.png)
 
 | Parameter                 | Nilai/Deskripsi |
 | ------------------------- | --------------- |
@@ -366,11 +366,11 @@ Motor ini tidak memiliki encoder, jadi Anda hanya perlu memodifikasi **tipe moto
 
 Perkabelan yang direkomendasikan: Hubungkan interface XH2.54-2PIN pada motor TT langsung ke soket XH2.54-2PIN pada board driver motor 4-channel.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/12.png)
+![img](assets/12.png)
 
  
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/13.png)
+![img](assets/13.png)
 
  
 
@@ -378,7 +378,7 @@ Perkabelan yang direkomendasikan: Hubungkan interface XH2.54-2PIN pada motor TT 
 
 ## 4. Motor TT dengan pengukuran kecepatan encoder
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/14.png)
+![img](assets/14.png)
 
 | Parameter                          | Nilai/Deskripsi                                              |
 | ---------------------------------- | ------------------------------------------------------------ |
@@ -405,7 +405,7 @@ Dua parameter **rasio reduksi dan jumlah garis encoder** dalam tabel parameter u
 
 Perkabelan yang direkomendasikan: Gunakan kabel PH2.0-6PIN ke kabel Dupont dan hubungkan ke soket IO board driver motor 4-channel.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/7-1761613091410-8.png)
+![img](assets/7-1761613091410-8.png)
 
 ![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/8.png)
 
@@ -413,11 +413,11 @@ Instruksi perkabelan untuk motor TT pengukuran kecepatan encoder:
 
 Ketika fase A motor TT encoder terhubung ke fase A board driver motor empat jalur, dan fase B terhubung ke fase B, maka saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:3#`, model motor TT dengan encoder.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/15.png)
+![img](assets/15.png)
 
 ## 5. Motor 520 tipe-L
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/17.png)
+![img](assets/17.png)
 
 | Parameter             | Nilai/Deskripsi  |
 | --------------------- | ---------------- |
@@ -441,7 +441,7 @@ Perkabelan yang direkomendasikan: Motor 520 tipe-L yang dibeli akan dilengkapi d
 
 Perkabelan ini adalah yang paling nyaman, tetapi dapat ditemukan bahwa A pada motor sesuai dengan fase B board driver motor 4-channel. Oleh karena itu, saat mengkonfigurasi tipe motor pada board driver motor 4-channel, Anda harus memilih `$mtype:1#`, model motor 520.
 
-![img](https://www.yahboom.net/public/upload/upload-html/1740571311/3.png)![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/4.png)
+![img](./assets/3-1761629712797-4.png)![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/4.png)
 
 Instruksi perkabelan motor 520 tipe-L:
 
@@ -449,7 +449,7 @@ Jika Anda menggunakan koneksi PH2.0-6PIN ke kabel Dupont, Anda dapat menghubungk
 
 Namun, saat mengkonfigurasi tipe motor, Anda harus memilih `$mtype:2#`, model motor 310.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/5-1761612922479-53.png)
+![img](assets/5-1761612922479-53.png)
 
 ## 1.PC host
 
@@ -478,7 +478,7 @@ Hubungkan board driver ke komputer melalui port TYPE-C pada board driver, dan gu
 
 Buka software asisten port serial di komputer. Di sini kita mengambil Uart Assistant sebagai contoh.
 
-![image-20250218145905154](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/1-1761604274918-25.png)
+![image-20250218145905154](assets/1-1761604274918-25.png)
 
  
 
@@ -488,13 +488,13 @@ Setelah konfigurasi, Anda dapat mengirim perintah di jendela kirim di bawah untu
 
 Selanjutnya, kami akan mendemonstrasikan cara memodifikasi parameter default untuk menggunakan **motor 310, ban diameter 48mm**.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/2-1761604274919-26.png)
+![img](assets/2-1761604274919-26.png)
 
 Pertama, keluarkan perintah `$read_flash#`, yang digunakan untuk query parameter penyimpanan power-off di flash. Ini dapat menyimpan tipe ban, zona mati motor, garis fase motor, rasio reduksi motor, diameter roda, dan parameter PID motor.
 
 Kemudian, sesuai dengan parameter motor dan ban, masukkan perintah konfigurasi parameter kirim di kolom kirim di bawah.
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/3-1761604274919-27.png)
+![img](assets/3-1761604274919-27.png)
 
 ![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/4-1761604274919-28.png)
 
