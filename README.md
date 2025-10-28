@@ -496,7 +496,7 @@ Kemudian, sesuai dengan parameter motor dan ban, masukkan perintah konfigurasi p
 
 ![img](assets/3-1761604274919-27.png)
 
-![img](C:/Users/hardware/Documents/Yahboom 4channel-motor-driver-encoder/assets/4-1761604274919-28.png)
+![img](assets/4-1761604274919-28.png)
 
 Kita dapat melihat bahwa setelah setiap perintah konfigurasi dikeluarkan, board driver akan mengirim kembali pesan 'OK!', menunjukkan bahwa pengaturan berhasil. Terakhir, gunakan perintah untuk melihat flash untuk melihat bahwa parameter yang baru saja dimodifikasi telah berlaku. Metode modifikasi parameter PID sama dengan ini, tetapi umumnya tidak perlu dimodifikasi, jadi tidak akan didemonstrasikan di sini.
 
