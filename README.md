@@ -1,5 +1,22 @@
 # Welcome to 4-Channel Motor Drive Module repository
 
+<!-- hwthinker-store-links -->
+
+## Beli boardnya & tutorial lengkap
+
+**Board yang dipakai di repo ini tersedia di HwThinker Store:**
+
+- [Yahboom 4-Channel Encoder Motor Drive Module – Driver Motor Pintar…](https://hwthinker.com/produk/a06ef876-9c51-40fa-a839-12576aebc7f2)
+
+**Tutorial lengkap — langkah bergambar, troubleshooting, dan kode yang sudah diuji:**
+
+- [Yahboom 4-Channel Motor Driver Encoder — Protokol Serial/IIC, Wiring Motor, dan…](https://hwthinker.com/tutorials/yahboom-4ch-motor-driver-encoder)
+
+Butuh bantuan pemasangan? Sapa kami lewat live chat di [hwthinker.com](https://hwthinker.com) — barang dikirim dari Surabaya, sudah diuji sebelum dikemas.
+
+<!-- /hwthinker-store-links -->
+
+
 ## 1.1 Pengenalan Board Driver Motor 4-Channel
 
 ![image-20251028052746916](assets/image-20251028052746916.png)
